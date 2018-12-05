@@ -1,4 +1,4 @@
-# sets_frontend_flutter
+# SETS Cross-Platform Frontend
 Dart(Flutter) build of the SETS Frontend GUI for both Android&#x2F;iOS
 
 ## Getting Started
