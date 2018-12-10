@@ -1,0 +1,40 @@
+syntax = "proto2";
+package sets;
+
+service ErrorResolution {
+	rpc getSymptomList(UserQuery) returns (ServerList) {}
+	rpc startSession(UserSelection) returns (ServerFeedback) {}
+	rpc getNextQuestion(UserFeedback) returns (ServerFeedback) {}
+}
+
+//User askes a question on an issue to server
+message UserQuery {
+	required string input = 1;
+}
+
+message Symptom{
+	required string input = 1;
+}
+
+//Server response with a list of symptoms to user question
+message ServerList{
+	repeated Symptom symptoms = 1;
+}
+
+//User sends response of which symptoms are confirmed
+message UserSelection{
+	repeated string input = 1;
+}
+
+//Server sends a single symptom/resolution question to User
+//Server can also finish session via doneFlag
+message ServerFeedback {
+	required string input    = 1;
+	required bool doneFlag   = 2;
+	required bool solvedFlag = 3;
+}
+
+//User responses with yes or no responses to server question
+message UserFeedback {
+	required bool input = 1;
+}
