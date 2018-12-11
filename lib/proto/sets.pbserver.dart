@@ -1,10 +1,9 @@
 ///
 //  Generated code. Do not modify.
-//  source: sets.proto
 ///
-// ignore_for_file: non_constant_identifier_names,library_prefixes,unused_import
+// ignore_for_file: non_constant_identifier_names,library_prefixes
 
-import 'dart:async' as $async;
+import 'dart:async';
 
 import 'package:protobuf/protobuf.dart';
 
@@ -14,9 +13,9 @@ import 'sets.pbjson.dart';
 export 'sets.pb.dart';
 
 abstract class ErrorResolutionServiceBase extends GeneratedService {
-  $async.Future<ServerList> getSymptomList(ServerContext ctx, UserQuery request);
-  $async.Future<ServerFeedback> startSession(ServerContext ctx, UserSelection request);
-  $async.Future<ServerFeedback> getNextQuestion(ServerContext ctx, UserFeedback request);
+  Future<ServerList> getSymptomList(ServerContext ctx, UserQuery request);
+  Future<ServerFeedback> startSession(ServerContext ctx, UserSelection request);
+  Future<ServerFeedback> getNextQuestion(ServerContext ctx, UserFeedback request);
 
   GeneratedMessage createRequest(String method) {
     switch (method) {
@@ -27,7 +26,7 @@ abstract class ErrorResolutionServiceBase extends GeneratedService {
     }
   }
 
-  $async.Future<GeneratedMessage> handleCall(ServerContext ctx, String method, GeneratedMessage request) {
+  Future<GeneratedMessage> handleCall(ServerContext ctx, String method, GeneratedMessage request) {
     switch (method) {
       case 'getSymptomList': return this.getSymptomList(ctx, request);
       case 'startSession': return this.startSession(ctx, request);
