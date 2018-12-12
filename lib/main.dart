@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 import 'package:sets_frontend_flutter/proto/sets.pb.dart';
 import 'package:sets_frontend_flutter/proto/sets.pbserver.dart';
+import 'package:sets_frontend_flutter/grpcClient.dart';
 
 void main() => runApp(new App());
 
@@ -26,13 +27,20 @@ class InitialPage extends StatefulWidget {
 
 //States for the Initial Page
 class _InitialPageState extends State<InitialPage> {
+
+
   //Controller to capture input from textField
-  final userInput = new TextEditingController();
+  final textInput = new TextEditingController();
 
   //When SUBMIT button is pressed, perform below event
   void _captureQuery() {
     setState(() {
-      userInput.text;
+      //Initialize gRPC channel
+      final stub = getStub();
+      //Grab description from textField and encapsulate as UserQuery gRPC message
+      final userQuery = new UserQuery()..input=textInput.text;
+      final symptoms  = await stub.   getSymptomsList(userQuery);
+
       //Get TextInput Variables
       //Send to backend and retrieve list of symptoms
       //Move to Symptoms Page if symptoms list has items
