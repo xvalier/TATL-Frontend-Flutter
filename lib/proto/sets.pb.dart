@@ -3,7 +3,6 @@
 ///
 // ignore_for_file: non_constant_identifier_names,library_prefixes
 
-import 'dart:async';
 // ignore: UNUSED_SHOWN_NAME
 import 'dart:core' show int, bool, double, String, List, override;
 
@@ -11,7 +10,8 @@ import 'package:protobuf/protobuf.dart';
 
 class UserQuery extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('UserQuery')
-    ..aQS(1, 'input')
+    ..aOS(1, 'input')
+    ..hasRequiredFields = false
   ;
 
   UserQuery() : super();
@@ -40,7 +40,8 @@ class _ReadonlyUserQuery extends UserQuery with ReadonlyMessageMixin {}
 
 class Symptom extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('Symptom')
-    ..aQS(1, 'input')
+    ..aOS(1, 'input')
+    ..hasRequiredFields = false
   ;
 
   Symptom() : super();
@@ -70,6 +71,7 @@ class _ReadonlySymptom extends Symptom with ReadonlyMessageMixin {}
 class ServerList extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('ServerList')
     ..pp<Symptom>(1, 'symptoms', PbFieldType.PM, Symptom.$checkItem, Symptom.create)
+    ..hasRequiredFields = false
   ;
 
   ServerList() : super();
@@ -114,7 +116,7 @@ class UserSelection extends GeneratedMessage {
   static void $checkItem(UserSelection v) {
     if (v is! UserSelection) checkItemFailed(v, 'UserSelection');
   }
-
+  set input(List<String> v) { setField(0, PbList.from(v)); }
   List<String> get input => $_getList(0);
 }
 
@@ -122,9 +124,10 @@ class _ReadonlyUserSelection extends UserSelection with ReadonlyMessageMixin {}
 
 class ServerFeedback extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('ServerFeedback')
-    ..aQS(1, 'input')
-    ..a<bool>(2, 'doneFlag', PbFieldType.QB)
-    ..a<bool>(3, 'solvedFlag', PbFieldType.QB)
+    ..aOS(1, 'input')
+    ..aOB(2, 'doneFlag')
+    ..aOB(3, 'solvedFlag')
+    ..hasRequiredFields = false
   ;
 
   ServerFeedback() : super();
@@ -163,7 +166,8 @@ class _ReadonlyServerFeedback extends ServerFeedback with ReadonlyMessageMixin {
 
 class UserFeedback extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('UserFeedback')
-    ..a<bool>(1, 'input', PbFieldType.QB)
+    ..aOB(1, 'input')
+    ..hasRequiredFields = false
   ;
 
   UserFeedback() : super();
@@ -189,22 +193,4 @@ class UserFeedback extends GeneratedMessage {
 }
 
 class _ReadonlyUserFeedback extends UserFeedback with ReadonlyMessageMixin {}
-
-class ErrorResolutionApi {
-  RpcClient _client;
-  ErrorResolutionApi(this._client);
-
-  Future<ServerList> getSymptomList(ClientContext ctx, UserQuery request) {
-    var emptyResponse = new ServerList();
-    return _client.invoke<ServerList>(ctx, 'ErrorResolution', 'getSymptomList', request, emptyResponse);
-  }
-  Future<ServerFeedback> startSession(ClientContext ctx, UserSelection request) {
-    var emptyResponse = new ServerFeedback();
-    return _client.invoke<ServerFeedback>(ctx, 'ErrorResolution', 'startSession', request, emptyResponse);
-  }
-  Future<ServerFeedback> getNextQuestion(ClientContext ctx, UserFeedback request) {
-    var emptyResponse = new ServerFeedback();
-    return _client.invoke<ServerFeedback>(ctx, 'ErrorResolution', 'getNextQuestion', request, emptyResponse);
-  }
-}
 

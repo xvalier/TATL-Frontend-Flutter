@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sets_frontend_flutter/proto/sets.pb.dart';
 import 'package:sets_frontend_flutter/proto/sets.pbgrpc.dart';
-import 'package:sets_frontend_flutter/proto/sets.pbserver.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
 
 void main() => runApp(new App());
@@ -18,6 +17,7 @@ class App extends StatelessWidget {
   }
 }
 
+
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class InitialPage extends StatefulWidget {
   InitialPage({Key key, this.title}) : super(key: key);
@@ -30,29 +30,23 @@ class InitialPage extends StatefulWidget {
 class _InitialPageState extends State<InitialPage> {
   //Controller to capture input from textField
   final textInput = new TextEditingController();
-
+  //gRPC communication object
+  final clientModel = new Client();
   //When SUBMIT button is pressed, perform below event
-  void _captureQuery() async {
+  void _captureQuery() {
     setState(() {
-      //Initialize gRPC channel
-      final stub = getStub();
-      //Grab description from textField and encapsulate as UserQuery gRPC message
-      final userQuery = new UserQuery()..input=textInput.text;
-      final symList  = stub.getSymptomList(userQuery);
-      final symptoms = <ServerList>[symList];
-
-      ${symList.symptoms
-      if (symptoms == NULL){
-        symptoms ==NULL
+      //Process user description, obtain list of relevant symptoms
+      clientModel.getStub();
+      clientModel.getSymptoms(textInput.text);
+      if (clientModel.symptoms == Null){
+        //Go to close Page
       }
-
-      //Move to Symptoms Page if symptoms list has items
-      //Else, go to close page
-    });
+      else{
+        //Go to symptoms page with clientModel
+      }
+    }
   }
 
-  //Method that is re-run every time setState is called.
-  //This portion controls appearance. It is equivalent to XML layout in Android
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -81,7 +75,7 @@ class _InitialPageState extends State<InitialPage> {
                 filled: true,
                 fillColor: Colors.grey,
                 //textwrap
-                  //fill up screen
+                //fill up screen
                 border: InputBorder.none,
                 hintText: 'Enter your issue here',
               ),

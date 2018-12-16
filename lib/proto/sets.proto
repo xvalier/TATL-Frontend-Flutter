@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 package sets;
 
 service ErrorResolution {
@@ -9,11 +9,11 @@ service ErrorResolution {
 
 //User askes a question on an issue to server
 message UserQuery {
-	required string input = 1;
+	string input = 1;
 }
 
 message Symptom{
-	required string input = 1;
+	string input = 1;
 }
 
 //Server response with a list of symptoms to user question
@@ -29,12 +29,12 @@ message UserSelection{
 //Server sends a single symptom/resolution question to User
 //Server can also finish session via doneFlag
 message ServerFeedback {
-	required string input    = 1;
-	required bool doneFlag   = 2;
-	required bool solvedFlag = 3;
+	string input    = 1;
+	bool doneFlag   = 2;
+	bool solvedFlag = 3;
 }
 
 //User responses with yes or no responses to server question
 message UserFeedback {
-	required bool input = 1;
+	bool input = 1;
 }
