@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class NextPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class NextPage extends StatefulWidget {
 class NextPageState extends State<NextPage> {
   final Client clientModel;
   NextPageState(this.clientModel);
-
+  static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
 //Controller to capture input from textField
   final textInput = new TextEditingController();
 

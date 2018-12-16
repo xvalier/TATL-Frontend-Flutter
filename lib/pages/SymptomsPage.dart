@@ -14,6 +14,7 @@ class SymptomsPage extends StatefulWidget {
 class SymptomsPageState extends State<SymptomsPage> {
   final Client clientModel;
   SymptomsPageState(this.clientModel);
+  static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
 
 //Controller to capture input from textField
   final textInput = new TextEditingController();

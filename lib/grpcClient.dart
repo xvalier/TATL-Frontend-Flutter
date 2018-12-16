@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 import 'package:sets_frontend_flutter/proto/sets.pbgrpc.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -10,6 +11,7 @@ class Client extends baseModel {
     bool done;
     bool solved;
     String closingMessage;
+    static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
 
     Future<Null> getStub() async {
         final channel = new ClientChannel(
@@ -23,7 +25,7 @@ class Client extends baseModel {
     }
 
     //Process user description to get list of relevant symptoms
-    Future<Null> getSymptoms(text) async {
+    Future<Null> getSymptoms(context, text) async {
         final userQuery = new UserQuery()..input = text;
         final symList = await stub.getSymptomList(userQuery);
         if(symList.symptoms.isNotEmpty) {
@@ -31,6 +33,16 @@ class Client extends baseModel {
                 symptoms.add(item.input);
                 print(item.input);
             }
+        }
+        //If no symptoms, go to close page. Otherwise, go to Symptoms page
+        if (symptoms.isEmpty){
+            print('Symptoms list is empty, must close out');
+            setCloser('No symptoms were found for description');
+            Navigator.of(context).pushNamed('/close');
+        }
+        else{
+            print('Navigating to symptoms page');
+            Navigator.of(context).pushNamed('/symptoms');
         }
         notifyListeners();
     }

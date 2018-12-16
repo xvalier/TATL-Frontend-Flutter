@@ -26,18 +26,8 @@ class InitialPageState extends State<InitialPage> {
     setState(() {
       //Process user description, obtain list of relevant symptoms
       clientModel.getStub();
-      clientModel.getSymptoms(textInput.text);
-      print('Finished getting symptoms list');
-      //If no symptoms, go to close page. Otherwise, go to Symptoms page
-      if (clientModel.symptoms.isEmpty){
-        print('Symptoms list is empty, must close out');
-        clientModel.setCloser('No symptoms were found for description');
-        Navigator.of(context).pushNamed('/close');
-      }
-      else{
-        print('Navigating to symptoms page');
-        Navigator.of(context).pushNamed('/symptoms');
-      }
+      clientModel.getSymptoms(context, textInput.text);
+      print('Back to initial page');
     });
   }
 
