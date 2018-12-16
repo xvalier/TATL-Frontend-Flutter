@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'package:grpc/grpc.dart';
 import 'package:sets_frontend_flutter/proto/sets.pbgrpc.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class Client {
+class Client extends baseModel {
     ErrorResolutionClient stub;
     List<String> symptoms;
     String nextQuestion;
     bool done;
     bool solved;
+    String closingMessage;
 
     Future<Null> getStub() async {
         final channel = new ClientChannel(
@@ -17,6 +19,7 @@ class Client {
             )
         );
         stub = new ErrorResolutionClient(channel);
+        notifyListeners();
     }
 
     //Process user description to get list of relevant symptoms
@@ -26,6 +29,7 @@ class Client {
         for (var item in symList.symptoms) {
             symptoms.add(item.input);
         }
+        notifyListeners();
     }
 
     //Take in user selected symptoms to get first question to ask
@@ -47,5 +51,15 @@ class Client {
       nextQuestion = question.input;
       done = question.doneFlag;
       solved = question.solvedFlag;
+      notifyListeners();
     }
+
+    //Setter for close Page message
+    void setCloser(message){ closingMessage = message;}
 }
+
+class baseModel extends Model{
+    @override
+    void notifyListeners() {super.notifyListeners();}
+}
+
