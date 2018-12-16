@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
@@ -21,18 +22,23 @@ class InitialPageState extends State<InitialPage> {
   static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
 
   //When SUBMIT button is pressed, perform below event
-  void _captureQuery() {
-    setState() {
+  void captureQuery() {
+    setState(() {
       //Process user description, obtain list of relevant symptoms
       clientModel.getStub();
       clientModel.getSymptoms(textInput.text);
+      print('Finished getting symptoms list');
       //If no symptoms, go to close page. Otherwise, go to Symptoms page
       if (clientModel.symptoms.isEmpty){
+        print('Symptoms list is empty, must close out');
         clientModel.setCloser('No symptoms were found for description');
         Navigator.of(context).pushNamed('/close');
       }
-      else{Navigator.of(context).pushNamed('/symptoms');}
-    };
+      else{
+        print('Navigating to symptoms page');
+        Navigator.of(context).pushNamed('/symptoms');
+      }
+    });
   }
 
   //GUI Layout
@@ -51,7 +57,7 @@ class InitialPageState extends State<InitialPage> {
             ),
             //Submit Button
             new RaisedButton(
-              onPressed: _captureQuery,
+              onPressed: captureQuery,
               color: Colors.green,
               child: new Text('SUBMIT'),
             ),

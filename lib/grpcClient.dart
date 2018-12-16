@@ -5,7 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 class Client extends baseModel {
     ErrorResolutionClient stub;
-    List<String> symptoms;
+    List<String> symptoms = [];
     String nextQuestion;
     bool done;
     bool solved;
@@ -26,8 +26,11 @@ class Client extends baseModel {
     Future<Null> getSymptoms(text) async {
         final userQuery = new UserQuery()..input = text;
         final symList = await stub.getSymptomList(userQuery);
-        for (var item in symList.symptoms) {
-            symptoms.add(item.input);
+        if(symList.symptoms.isNotEmpty) {
+            for (var item in symList.symptoms) {
+                symptoms.add(item.input);
+                print(item.input);
+            }
         }
         notifyListeners();
     }

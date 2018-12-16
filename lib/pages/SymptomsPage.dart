@@ -19,12 +19,48 @@ class SymptomsPageState extends State<SymptomsPage> {
   final textInput = new TextEditingController();
 
 //When SUBMIT button is pressed, perform below event
-  void _captureQuery() {
+  void captureSelection() {
+    print('Reached symptoms page...');
     setState() {}
   }
 
-  @override
+  @override @override
   Widget build(BuildContext context) {
-    return new Scaffold();
+    return new Scaffold(
+      appBar: new AppBar(title: new Text('Symptoms Page'),),
+      body: new Center(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          //Vertical Linear Layout of Views
+          children: <Widget>[
+            //TextView Equivalent
+            new Text(
+              'Does any of the below symptoms match?',
+            ),
+            //Submit Button
+            new RaisedButton(
+              onPressed: captureSelection,
+              color: Colors.green,
+              child: new Text('SUBMIT'),
+            ),
+            //TextInput Equivalent
+            new TextField(
+              style: new TextStyle(
+                height: 2.0,
+              ),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.grey,
+                //textwrap
+                //fill up screen
+                border: InputBorder.none,
+                hintText: 'Enter your issue here',
+              ),
+              controller: textInput,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
