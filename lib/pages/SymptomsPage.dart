@@ -14,54 +14,66 @@ class SymptomsPage extends StatefulWidget {
 class SymptomsPageState extends State<SymptomsPage> {
   final Client clientModel;
   SymptomsPageState(this.clientModel);
+  //Used to get Navigator to route to all pages based on 'context'
   static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
 
-//Controller to capture input from textField
-  final textInput = new TextEditingController();
+  //Controller to capture input from textField
+  List<bool> checkboxes = [false,false,false,false,false];
 
-//When SUBMIT button is pressed, perform below event
+
+  //When SUBMIT button is pressed, perform below event
   void captureSelection() {
-    print('Reached symptoms page...');
-    setState() {}
+    setState(() {
+      //Convert list of user choices to strings
+      List<String> selection=[];
+      for(var item in checkboxes){
+        selection.add(bool2str(item));
+      }
+      clientModel.getFirstQuestion(context, selection);
+    });
+  }
+  
+  //Function to convert bools to appropiate string representation
+  String bool2str(bool value){
+    if(value){ return '1';}
+    else{return '0';}
   }
 
-  @override @override
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(title: new Text('Symptoms Page'),),
       body: new Center(
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          //Vertical Linear Layout of Views
           children: <Widget>[
-            //TextView Equivalent
-            new Text(
-              'Does any of the below symptoms match?',
-            ),
-            //Submit Button
-            new RaisedButton(
+            new Text('Does any of the below symptoms match?',), //Message
+            new RaisedButton(                                   //Submit Button
               onPressed: captureSelection,
               color: Colors.green,
               child: new Text('SUBMIT'),
             ),
-            //TextInput Equivalent
-            new TextField(
-              style: new TextStyle(
-                height: 2.0,
+            Expanded(
+              child: ListView.builder(                          //CheckList
+                  itemCount: clientModel.symptoms.length,
+                  itemBuilder: (context, index){
+                    return CheckboxListTile(
+                      title: Text('${clientModel.symptoms[index]}'),
+                      value: checkboxes[index],
+                      onChanged: (bool value){
+                        setState((){
+                          checkboxes[index]=value;
+                          print(index);
+                          print(value);
+                        });
+                      },
+                    );
+                  },
               ),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.grey,
-                //textwrap
-                //fill up screen
-                border: InputBorder.none,
-                hintText: 'Enter your issue here',
-              ),
-              controller: textInput,
-            ),
-          ],
+            )
+          ]
         ),
-      ),
+      )
     );
   }
 }

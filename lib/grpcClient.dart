@@ -11,6 +11,7 @@ class Client extends baseModel {
     bool done;
     bool solved;
     String closingMessage;
+    //Used to get Navigator to route to all pages based on 'context'
     static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
 
     Future<Null> getStub() async {
@@ -24,10 +25,13 @@ class Client extends baseModel {
         notifyListeners();
     }
 
-    //Process user description to get list of relevant symptoms
+
     Future<Null> getSymptoms(context, text) async {
+        //Process user description to get list of relevant symptoms
         final userQuery = new UserQuery()..input = text;
         final symList = await stub.getSymptomList(userQuery);
+        //Fill symptoms list with backend symptoms
+        symptoms = [];
         if(symList.symptoms.isNotEmpty) {
             for (var item in symList.symptoms) {
                 symptoms.add(item.input);
@@ -36,36 +40,60 @@ class Client extends baseModel {
         }
         //If no symptoms, go to close page. Otherwise, go to Symptoms page
         if (symptoms.isEmpty){
-            print('Symptoms list is empty, must close out');
             setCloser('No symptoms were found for description');
             Navigator.of(context).pushNamed('/close');
         }
         else{
-            print('Navigating to symptoms page');
+            print('Reached symptoms page');
             Navigator.of(context).pushNamed('/symptoms');
         }
         notifyListeners();
     }
 
     //Take in user selected symptoms to get first question to ask
-    Future<Null> getFirstQuestion(selection) async {
-        final userSelection  = UserSelection()..input=selection;
+    Future<Null> getFirstQuestion(context, selection) async {
+        //Elegant solution
+        //final userSelection = UserSelection()..input=selection;
+        //Below is the necessary workaround because no one coded a setter (also had to comment out 'repeated' assert in field_set.dat)
+        final userSelection = UserSelection();
+        for (var i = 0; i < selection.length; i++){
+            userSelection.$_setString(i, selection[i]);
+        }
+
+        print('Encapsulated');
         final question = await stub.startSession(userSelection);
         processQuestion(question);
+        if(done){
+            print('Tranversal is finished');
+            setCloser('No symptoms/resolutions match your choices.');
+            Navigator.of(context).pushNamed('/close');
+        }
+        else{
+            Navigator.of(context).pushNamed('/next');
+        }
     }
 
     //Take in user yes/no answer to get next question to ask
-    Future<Null> getQuestion(feedback) async {
+    Future<Null> getQuestion(context, feedback) async {
         final userFeedback = new UserFeedback()..input = feedback;
         final question = await stub.getNextQuestion(userFeedback);
         processQuestion(question);
+        if(done){
+            print('Traversal is finished');
+            if(solved){ setCloser('Problem is solved!'); }
+            else{ setCloser('No records match your issue');}
+            Navigator.of(context).pushNamed('/close');
+        }
     }
 
     //Extract attribute information from gRPC message
     void processQuestion(question){
       nextQuestion = question.input;
+      print(question.input);
       done = question.doneFlag;
+      print(question.doneFlag);
       solved = question.solvedFlag;
+      print(question.solvedFlag);
       notifyListeners();
     }
 

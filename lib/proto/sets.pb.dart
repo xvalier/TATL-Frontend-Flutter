@@ -116,7 +116,7 @@ class UserSelection extends GeneratedMessage {
   static void $checkItem(UserSelection v) {
     if (v is! UserSelection) checkItemFailed(v, 'UserSelection');
   }
-  set input(List<String> v) { setField(0, PbList.from(v)); }
+  //set input(List<String> v) { setField(0, PbList.from(v)); } //workaround attempt, doesn't work
   List<String> get input => $_getList(0);
 }
 
