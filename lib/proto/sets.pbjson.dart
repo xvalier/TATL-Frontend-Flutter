@@ -27,7 +27,7 @@ const ServerList$json = const {
 const UserSelection$json = const {
   '1': 'UserSelection',
   '2': const [
-    const {'1': 'input', '3': 1, '4': 3, '5': 9, '10': 'input'},
+    const {'1': 'input', '3': 1, '4': 1, '5': 9, '10': 'input'},
   ],
 };
 

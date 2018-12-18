@@ -23,7 +23,7 @@ message ServerList{
 
 //User sends response of which symptoms are confirmed
 message UserSelection{
-	repeated string input = 1;
+	string input = 1;
 }
 
 //Server sends a single symptom/resolution question to User

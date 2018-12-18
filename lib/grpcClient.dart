@@ -52,16 +52,10 @@ class Client extends baseModel {
 
     //Take in user selected symptoms to get first question to ask
     Future<Null> getFirstQuestion(context, selection) async {
-        //Elegant solution
-        //final userSelection = UserSelection()..input=selection;
-        //Below is the necessary workaround because no one coded a setter (also had to comment out 'repeated' assert in field_set.dat)
-        final userSelection = UserSelection();
-        for (var i = 0; i < selection.length; i++){
-            userSelection.$_setString(i, selection[i]);
-        }
-
+        final userSelection = UserSelection()..input=selection;
         print('Encapsulated');
         final question = await stub.startSession(userSelection);
+        print('Received server feedback');
         processQuestion(question);
         if(done){
             print('Tranversal is finished');

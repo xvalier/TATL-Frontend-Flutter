@@ -97,7 +97,7 @@ class _ReadonlyServerList extends ServerList with ReadonlyMessageMixin {}
 
 class UserSelection extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('UserSelection')
-    ..pPS(1, 'input')
+    ..aOS(1, 'input')
     ..hasRequiredFields = false
   ;
 
@@ -116,8 +116,11 @@ class UserSelection extends GeneratedMessage {
   static void $checkItem(UserSelection v) {
     if (v is! UserSelection) checkItemFailed(v, 'UserSelection');
   }
-  //set input(List<String> v) { setField(0, PbList.from(v)); } //workaround attempt, doesn't work
-  List<String> get input => $_getList(0);
+
+  String get input => $_getS(0, '');
+  set input(String v) { $_setString(0, v); }
+  bool hasInput() => $_has(0);
+  void clearInput() => clearField(1);
 }
 
 class _ReadonlyUserSelection extends UserSelection with ReadonlyMessageMixin {}

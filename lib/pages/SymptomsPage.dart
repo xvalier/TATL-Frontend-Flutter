@@ -24,10 +24,10 @@ class SymptomsPageState extends State<SymptomsPage> {
   //When SUBMIT button is pressed, perform below event
   void captureSelection() {
     setState(() {
-      //Convert list of user choices to strings
-      List<String> selection=[];
+      //Convert list of user choices to string of 1s and 0s
+      String selection ='';
       for(var item in checkboxes){
-        selection.add(bool2str(item));
+        selection = selection + bool2str(item);
       }
       clientModel.getFirstQuestion(context, selection);
     });
