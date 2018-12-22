@@ -21,10 +21,10 @@ class NextPageState extends State<NextPage> {
 
   //When YES/NO button is pressed, perform below event
   void captureYes() {
-    setState(() { clientModel.getQuestion(context, 1);});
+    setState(() { clientModel.getQuestion(context, true);});
   }
   void captureNo() {
-    setState(() {clientModel.getQuestion(context, 0);});
+    setState(() {clientModel.getQuestion(context, false);});
   }
 
   @override

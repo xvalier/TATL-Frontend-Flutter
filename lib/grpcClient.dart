@@ -35,7 +35,6 @@ class Client extends baseModel {
         if(symList.symptoms.isNotEmpty) {
             for (var item in symList.symptoms) {
                 symptoms.add(item.input);
-                print(item.input);
             }
         }
         //If no symptoms, go to close page. Otherwise, go to Symptoms page
@@ -43,22 +42,16 @@ class Client extends baseModel {
             setCloser('No symptoms were found for description');
             Navigator.of(context).pushNamed('/close');
         }
-        else{
-            print('Reached symptoms page');
-            Navigator.of(context).pushNamed('/symptoms');
-        }
+        else{ Navigator.of(context).pushNamed('/symptoms'); }
         notifyListeners();
     }
 
     //Take in user selected symptoms to get first question to ask
     Future<Null> getFirstQuestion(context, selection) async {
         final userSelection = UserSelection()..input=selection;
-        print('Encapsulated');
         final question = await stub.startSession(userSelection);
-        print('Received server feedback');
         processQuestion(question);
         if(done){
-            print('Tranversal is finished');
             setCloser('No symptoms/resolutions match your choices.');
             Navigator.of(context).pushNamed('/close');
         }
@@ -73,7 +66,6 @@ class Client extends baseModel {
         final question = await stub.getNextQuestion(userFeedback);
         processQuestion(question);
         if(done){
-            print('Traversal is finished');
             if(solved){ setCloser('Problem is solved!'); }
             else{ setCloser('No records match your issue');}
             Navigator.of(context).pushNamed('/close');
@@ -83,11 +75,8 @@ class Client extends baseModel {
     //Extract attribute information from gRPC message
     void processQuestion(question){
       nextQuestion = question.input;
-      print(question.input);
       done = question.doneFlag;
-      print(question.doneFlag);
       solved = question.solvedFlag;
-      print(question.solvedFlag);
       notifyListeners();
     }
 

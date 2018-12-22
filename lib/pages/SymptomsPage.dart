@@ -20,23 +20,23 @@ class SymptomsPageState extends State<SymptomsPage> {
   //Controller to capture input from textField
   List<bool> checkboxes = [false,false,false,false,false];
 
-
   //When SUBMIT button is pressed, perform below event
   void captureSelection() {
     setState(() {
       //Convert list of user choices to string of 1s and 0s
       String selection ='';
-      for(var item in checkboxes){
-        selection = selection + bool2str(item);
+      for (var i=0; i<5;i++){
+        selection = selection + bool2str(i, checkboxes[i]);
       }
+      print(selection);
       clientModel.getFirstQuestion(context, selection);
     });
   }
   
   //Function to convert bools to appropiate string representation
-  String bool2str(bool value){
-    if(value){ return '1';}
-    else{return '0';}
+  String bool2str(int i, bool value){
+    if(value){ return i.toString();}
+    else{return '';}
   }
 
   @override
@@ -63,8 +63,6 @@ class SymptomsPageState extends State<SymptomsPage> {
                       onChanged: (bool value){
                         setState((){
                           checkboxes[index]=value;
-                          print(index);
-                          print(value);
                         });
                       },
                     );
