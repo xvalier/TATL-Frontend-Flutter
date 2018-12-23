@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
@@ -26,10 +25,10 @@ class AppState extends State<App> {
         title: 'Xyntek Curated Troubleshooting',
         debugShowCheckedModeBanner: false,
         routes: <String, WidgetBuilder>{
-          '/': (context)         => new InitialPage(clientModel),
+          '/':         (context) => new InitialPage(clientModel),
           '/symptoms': (context) => new SymptomsPage(clientModel),
-          '/next': (context)     => new NextPage(clientModel),
-          '/close': (context)    => new ClosePage(clientModel),
+          '/next':     (context) => new NextPage(clientModel),
+          '/close':    (context) => new ClosePage(clientModel),
         },
       )
     );
