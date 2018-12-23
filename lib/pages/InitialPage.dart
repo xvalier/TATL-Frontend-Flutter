@@ -108,7 +108,7 @@ class InitialPageState extends State<InitialPage> {
                     color: const Color(AppColors.blueSaturated),
                     width: 0.5,
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: new RaisedButton(
                   onPressed: captureQuery,
