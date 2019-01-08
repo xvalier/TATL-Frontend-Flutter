@@ -7,6 +7,8 @@ import 'package:scoped_model/scoped_model.dart';
 class Client extends baseModel {
     ErrorResolutionClient stub;
     List<String> symptoms = [];
+    String userToken   = "";
+    String authMessage = "";
     String nextQuestion;
     bool done;
     bool solved;
@@ -25,6 +27,37 @@ class Client extends baseModel {
         notifyListeners();
     }
 
+    Future<Null> sendAuth(context, name, pass) async {
+        //Encapsulate username and password and send to backend for auth
+        final user = new User()..email=name..pass=pass;
+        final receipt = await stub.sendLogin(user);
+        //Display message if error is not successful
+        if (!receipt.successFlag) {
+            authMessage = receipt.message;
+        }
+        //Otherwise, route to initial page
+        else {
+            userToken = receipt.token;
+            Navigator.of(context).pushNamed('/initial');
+        }
+        notifyListeners();
+    }
+
+    Future<Null> createAuth(context, name, pass, org, role) async {
+        //Encapsulate username and password and send to backend for auth
+        final newUser = new NewUser()..email=name..pass=pass..organization=org..role=role;
+        final receipt = await stub.createLogin(newUser);
+        //Display message if error is not successful
+        if (!receipt.successFlag) {
+            authMessage = receipt.message;
+        }
+        //Otherwise, route to initial page
+        else {
+            userToken = receipt.token;
+            Navigator.of(context).pushNamed('/');
+        }
+        notifyListeners();
+    }
 
     Future<Null> getSymptoms(context, text) async {
         //Process user description to get list of relevant symptoms
@@ -55,9 +88,7 @@ class Client extends baseModel {
             setCloser('No symptoms/resolutions match your choices.');
             Navigator.of(context).pushNamed('/close');
         }
-        else{
-            Navigator.of(context).pushNamed('/next');
-        }
+        else{ Navigator.of(context).pushNamed('/next'); }
     }
 
     //Take in user yes/no answer to get next question to ask

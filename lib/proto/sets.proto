@@ -5,11 +5,35 @@ service ErrorResolution {
 	rpc getSymptomList(UserQuery) returns (ServerList) {}
 	rpc startSession(UserSelection) returns (ServerFeedback) {}
 	rpc getNextQuestion(UserFeedback) returns (ServerFeedback) {}
+	rpc sendLogin(User) returns (Receipt) {}
+	rpc createLogin(NewUser) returns (Receipt) {}
+}
+
+//New User
+message NewUser {
+	string email = 1;
+	string pass = 2;
+	string organization = 3;
+	string role = 4;
+}
+
+//Existing User
+message User {
+	string email = 1;
+	string pass  = 2;
+}
+
+//Login Receipt (either an error message or route to next page)
+message Receipt {
+	string message   = 1;
+	bool successFlag = 2;
+	string token     = 3;
 }
 
 //User askes a question on an issue to server
 message UserQuery {
 	string input = 1;
+	string token = 2;
 }
 
 message Symptom{
@@ -24,6 +48,7 @@ message ServerList{
 //User sends response of which symptoms are confirmed
 message UserSelection{
 	string input = 1;
+	string token = 2;
 }
 
 //Server sends a single symptom/resolution question to User
@@ -36,5 +61,6 @@ message ServerFeedback {
 
 //User responses with yes or no responses to server question
 message UserFeedback {
-	bool input = 1;
+	bool input   = 1;
+	string token = 2;
 }

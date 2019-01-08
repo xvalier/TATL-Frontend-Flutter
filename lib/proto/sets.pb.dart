@@ -8,9 +8,136 @@ import 'dart:core' show int, bool, double, String, List, override;
 
 import 'package:protobuf/protobuf.dart';
 
+class NewUser extends GeneratedMessage {
+  static final BuilderInfo _i = new BuilderInfo('NewUser')
+    ..aOS(1, 'email')
+    ..aOS(2, 'pass')
+    ..aOS(3, 'organization')
+    ..aOS(4, 'role')
+    ..hasRequiredFields = false
+  ;
+
+  NewUser() : super();
+  NewUser.fromBuffer(List<int> i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  NewUser.fromJson(String i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  NewUser clone() => new NewUser()..mergeFromMessage(this);
+  BuilderInfo get info_ => _i;
+  static NewUser create() => new NewUser();
+  static PbList<NewUser> createRepeated() => new PbList<NewUser>();
+  static NewUser getDefault() {
+    if (_defaultInstance == null) _defaultInstance = new _ReadonlyNewUser();
+    return _defaultInstance;
+  }
+  static NewUser _defaultInstance;
+  static void $checkItem(NewUser v) {
+    if (v is! NewUser) checkItemFailed(v, 'NewUser');
+  }
+
+  String get email => $_getS(0, '');
+  set email(String v) { $_setString(0, v); }
+  bool hasEmail() => $_has(0);
+  void clearEmail() => clearField(1);
+
+  String get pass => $_getS(1, '');
+  set pass(String v) { $_setString(1, v); }
+  bool hasPass() => $_has(1);
+  void clearPass() => clearField(2);
+
+  String get organization => $_getS(2, '');
+  set organization(String v) { $_setString(2, v); }
+  bool hasOrganization() => $_has(2);
+  void clearOrganization() => clearField(3);
+
+  String get role => $_getS(3, '');
+  set role(String v) { $_setString(3, v); }
+  bool hasRole() => $_has(3);
+  void clearRole() => clearField(4);
+}
+
+class _ReadonlyNewUser extends NewUser with ReadonlyMessageMixin {}
+
+class User extends GeneratedMessage {
+  static final BuilderInfo _i = new BuilderInfo('User')
+    ..aOS(1, 'email')
+    ..aOS(2, 'pass')
+    ..hasRequiredFields = false
+  ;
+
+  User() : super();
+  User.fromBuffer(List<int> i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  User.fromJson(String i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  User clone() => new User()..mergeFromMessage(this);
+  BuilderInfo get info_ => _i;
+  static User create() => new User();
+  static PbList<User> createRepeated() => new PbList<User>();
+  static User getDefault() {
+    if (_defaultInstance == null) _defaultInstance = new _ReadonlyUser();
+    return _defaultInstance;
+  }
+  static User _defaultInstance;
+  static void $checkItem(User v) {
+    if (v is! User) checkItemFailed(v, 'User');
+  }
+
+  String get email => $_getS(0, '');
+  set email(String v) { $_setString(0, v); }
+  bool hasEmail() => $_has(0);
+  void clearEmail() => clearField(1);
+
+  String get pass => $_getS(1, '');
+  set pass(String v) { $_setString(1, v); }
+  bool hasPass() => $_has(1);
+  void clearPass() => clearField(2);
+}
+
+class _ReadonlyUser extends User with ReadonlyMessageMixin {}
+
+class Receipt extends GeneratedMessage {
+  static final BuilderInfo _i = new BuilderInfo('Receipt')
+    ..aOS(1, 'message')
+    ..aOB(2, 'successFlag')
+    ..aOS(3, 'token')
+    ..hasRequiredFields = false
+  ;
+
+  Receipt() : super();
+  Receipt.fromBuffer(List<int> i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  Receipt.fromJson(String i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  Receipt clone() => new Receipt()..mergeFromMessage(this);
+  BuilderInfo get info_ => _i;
+  static Receipt create() => new Receipt();
+  static PbList<Receipt> createRepeated() => new PbList<Receipt>();
+  static Receipt getDefault() {
+    if (_defaultInstance == null) _defaultInstance = new _ReadonlyReceipt();
+    return _defaultInstance;
+  }
+  static Receipt _defaultInstance;
+  static void $checkItem(Receipt v) {
+    if (v is! Receipt) checkItemFailed(v, 'Receipt');
+  }
+
+  String get message => $_getS(0, '');
+  set message(String v) { $_setString(0, v); }
+  bool hasMessage() => $_has(0);
+  void clearMessage() => clearField(1);
+
+  bool get successFlag => $_get(1, false);
+  set successFlag(bool v) { $_setBool(1, v); }
+  bool hasSuccessFlag() => $_has(1);
+  void clearSuccessFlag() => clearField(2);
+
+  String get token => $_getS(2, '');
+  set token(String v) { $_setString(2, v); }
+  bool hasToken() => $_has(2);
+  void clearToken() => clearField(3);
+}
+
+class _ReadonlyReceipt extends Receipt with ReadonlyMessageMixin {}
+
 class UserQuery extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('UserQuery')
     ..aOS(1, 'input')
+    ..aOS(2, 'token')
     ..hasRequiredFields = false
   ;
 
@@ -34,6 +161,11 @@ class UserQuery extends GeneratedMessage {
   set input(String v) { $_setString(0, v); }
   bool hasInput() => $_has(0);
   void clearInput() => clearField(1);
+
+  String get token => $_getS(1, '');
+  set token(String v) { $_setString(1, v); }
+  bool hasToken() => $_has(1);
+  void clearToken() => clearField(2);
 }
 
 class _ReadonlyUserQuery extends UserQuery with ReadonlyMessageMixin {}
@@ -98,6 +230,7 @@ class _ReadonlyServerList extends ServerList with ReadonlyMessageMixin {}
 class UserSelection extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('UserSelection')
     ..aOS(1, 'input')
+    ..aOS(2, 'token')
     ..hasRequiredFields = false
   ;
 
@@ -121,6 +254,11 @@ class UserSelection extends GeneratedMessage {
   set input(String v) { $_setString(0, v); }
   bool hasInput() => $_has(0);
   void clearInput() => clearField(1);
+
+  String get token => $_getS(1, '');
+  set token(String v) { $_setString(1, v); }
+  bool hasToken() => $_has(1);
+  void clearToken() => clearField(2);
 }
 
 class _ReadonlyUserSelection extends UserSelection with ReadonlyMessageMixin {}
@@ -170,6 +308,7 @@ class _ReadonlyServerFeedback extends ServerFeedback with ReadonlyMessageMixin {
 class UserFeedback extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('UserFeedback')
     ..aOB(1, 'input')
+    ..aOS(2, 'token')
     ..hasRequiredFields = false
   ;
 
@@ -193,6 +332,11 @@ class UserFeedback extends GeneratedMessage {
   set input(bool v) { $_setBool(0, v); }
   bool hasInput() => $_has(0);
   void clearInput() => clearField(1);
+
+  String get token => $_getS(1, '');
+  set token(String v) { $_setString(1, v); }
+  bool hasToken() => $_has(1);
+  void clearToken() => clearField(2);
 }
 
 class _ReadonlyUserFeedback extends UserFeedback with ReadonlyMessageMixin {}

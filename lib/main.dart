@@ -5,6 +5,8 @@ import 'package:sets_frontend_flutter/pages/InitialPage.dart';
 import 'package:sets_frontend_flutter/pages/SymptomsPage.dart';
 import 'package:sets_frontend_flutter/pages/NextPage.dart';
 import 'package:sets_frontend_flutter/pages/ClosePage.dart';
+import 'package:sets_frontend_flutter/pages/LoginPage.dart';
+import 'package:sets_frontend_flutter/pages/RegisterPage.dart';
 
 void main() => runApp(new App());
 class App extends StatefulWidget {
@@ -25,7 +27,9 @@ class AppState extends State<App> {
         title: 'Xyntek Curated Troubleshooting',
         debugShowCheckedModeBanner: false,
         routes: <String, WidgetBuilder>{
-          '/':         (context) => new InitialPage(clientModel),
+          '/':         (context) => new LoginPage(clientModel),
+          '/register': (context) => new RegisterPage(clientModel),
+          '/initial':  (context) => new InitialPage(clientModel),
           '/symptoms': (context) => new SymptomsPage(clientModel),
           '/next':     (context) => new NextPage(clientModel),
           '/close':    (context) => new ClosePage(clientModel),
