@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class InitialPage extends StatefulWidget {
-  Client clientModel;
+  final Client clientModel;
   InitialPage(this.clientModel);
   @override
   InitialPageState createState() => new InitialPageState(clientModel);
@@ -50,7 +50,7 @@ class InitialPageState extends State<InitialPage> {
             new Expanded(
               child:new Container(
                 constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
+                margin: const EdgeInsets.all(2.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: Color(AppColors.white),
@@ -61,7 +61,7 @@ class InitialPageState extends State<InitialPage> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: new Text(
-                  '\r\n What is you issue today?',
+                  '\r\n What is your issue?',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.clip,
                   style: appTheme.textTheme.headline,
@@ -98,12 +98,12 @@ class InitialPageState extends State<InitialPage> {
             ),
             //SUBMIT BUTTON
             new Expanded(
-              child:new Row(
+              child: new Row(
                 children: <Widget>[
-                  new Spacer(flex:4),
-                  new Expanded(
-                    child: new Column(
-                      children: <Widget>[
+                new Spacer(flex:4),
+                new Expanded(
+                  child: new ListView(
+                    children: <Widget>[
                         new FloatingActionButton(
                           onPressed: captureQuery,
                           backgroundColor: Color(AppColors.blueSaturated),
@@ -114,12 +114,13 @@ class InitialPageState extends State<InitialPage> {
                         ),
                         new Text(
                           'Search',
+                          textAlign: TextAlign.center,
                           style: appTheme.textTheme.display3,
                         ),
-                      ],
-                    ),
-                    flex:1,
-                  )
+                    ],
+                  ),
+                  flex:1,
+                )
                 ],
               ),
               flex: 1,

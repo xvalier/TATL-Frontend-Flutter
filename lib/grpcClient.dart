@@ -5,7 +5,7 @@ import 'package:sets_frontend_flutter/proto/sets.pbgrpc.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:device_id/device_id.dart';
 
-class Client extends baseModel {
+class Client extends BaseModel {
     ErrorResolutionClient stub;
     List<String> symptoms = [];
     String userToken   = "";
@@ -48,18 +48,18 @@ class Client extends baseModel {
 
     Future<Null> autoLogin(context) async {
         //Encapsulate username and password and send to backend for auth
-        String did = await DeviceId.getID;
-        final user = new User()..devID=did;
-        final receipt = await stub.sendLogin(user);
+        //String did = await DeviceId.getID;
+        //final user = new User()..devID=did;
+        //final receipt = await stub.sendLogin(user);
         //Display message if error is not successful
-        if (!receipt.successFlag) {
-            authMessage = receipt.message;
-        }
+        //if (!receipt.successFlag) {
+        //    authMessage = receipt.message;
+        //}
         //Otherwise, route to initial page
-        else {
-            userToken = receipt.token;
+        //else {
+        //    userToken = receipt.token;
         Navigator.of(context).pushNamed('/initial');
-        }
+        //}
         notifyListeners();
     }
 
@@ -141,7 +141,7 @@ class Client extends baseModel {
     void setCloser(message){ closingMessage = message;}
 }
 
-class baseModel extends Model{
+class BaseModel extends Model{
     @override
     void notifyListeners() {super.notifyListeners();}
 }

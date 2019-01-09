@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class LoginPage extends StatefulWidget {
-  Client clientModel;
+  final Client clientModel;
   LoginPage(this.clientModel);
   @override
   LoginPageState createState() => new LoginPageState(clientModel);
@@ -97,21 +97,9 @@ class LoginPageState extends State<LoginPage> {
             ),
             //FILL IN FORM
             new Expanded(
-              child: new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.only(left:15.0, right: 20.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.white),
-                  border: Border.all(
-                    color: const Color(AppColors.white),
-                    width: 3.5,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+              child: new ListView(
+                padding: const EdgeInsets.only(left:15.0, right:15.0),
+                children: <Widget>[
                     //USER NAME/EMAIL ENTRY
                     new Row(
                       children: <Widget>[
@@ -165,72 +153,75 @@ class LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-              ),
-              flex: 7,
+                flex:7,
             ),
             //BUTTON ROW
             new Expanded(
-              child: new Row(
+              child: new ListView(
                 children: <Widget>[
-                  //LOG IN BUTTON
-                  new Expanded(
-                    child: new Column(
-                      children: <Widget>[
-                        new FloatingActionButton(
-                          onPressed: sendCredentials,
-                          backgroundColor: Color(AppColors.redSaturated),
-                          heroTag: 'button1',
-                          child: new Icon(
-                            FontAwesomeIcons.key
-                          ),
+                  new Row(
+                    children: <Widget>[
+                      //LOG IN BUTTON
+                      new Expanded(
+                        child: new Column(
+                          children: <Widget>[
+                            new FloatingActionButton(
+                              onPressed: sendCredentials,
+                              backgroundColor: Color(AppColors.redSaturated),
+                              heroTag: 'button1',
+                              child: new Icon(
+                                  FontAwesomeIcons.key
+                              ),
+                            ),
+                            new Text(
+                              'Log in',
+                              style: appTheme.textTheme.display3,
+                            ),
+                          ],
                         ),
-                        new Text(
-                          'Log in',
-                            style: appTheme.textTheme.display3,
+                        flex: 1,
+                      ),
+                      //REGISTER USER BUTTON
+                      new Expanded(
+                        child: new Column(
+                          children: <Widget>[
+                            new FloatingActionButton(
+                              onPressed: navigateRegisterPage,
+                              backgroundColor: Color(AppColors.blueSaturated),
+                              heroTag: 'button2',
+                              child: new Icon(
+                                  FontAwesomeIcons.user
+                              ),
+                            ),
+                            new Text(
+                              'Register User',
+                              style: appTheme.textTheme.display3,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    flex: 1,
-                  ),
-                  //REGISTER USER BUTTON
-                  new Expanded(
-                    child: new Column(
-                      children: <Widget>[
-                        new FloatingActionButton(
-                          onPressed: navigateRegisterPage,
-                          backgroundColor: Color(AppColors.blueSaturated),
-                          heroTag: 'button2',
-                          child: new Icon(
-                              FontAwesomeIcons.user
-                          ),
+                        flex: 1,
+                      ),
+                      //AUTO LOGIN BUTTON
+                      new Expanded(
+                        child: new Column(
+                          children: <Widget>[
+                            new FloatingActionButton(
+                              onPressed: automaticLogin,
+                              backgroundColor: Color(AppColors.blueSaturated),
+                              heroTag: 'button3',
+                              child: new Icon(
+                                  FontAwesomeIcons.forward
+                              ),
+                            ),
+                            new Text(
+                              'Auto Login',
+                              style: appTheme.textTheme.display3,
+                            ),
+                          ],
                         ),
-                        new Text(
-                          'Register User',
-                          style: appTheme.textTheme.display3,
-                        ),
-                      ],
-                    ),
-                    flex: 1,
-                  ),
-                  //AUTO LOGIN BUTTON
-                  new Expanded(
-                    child: new Column(
-                      children: <Widget>[
-                        new FloatingActionButton(
-                          onPressed: automaticLogin,
-                          backgroundColor: Color(AppColors.blueSaturated),
-                          heroTag: 'button3',
-                          child: new Icon(
-                              FontAwesomeIcons.forward
-                          ),
-                        ),
-                        new Text(
-                          'Auto Login',
-                          style: appTheme.textTheme.display3,
-                        ),
-                      ],
-                    ),
-                    flex:1,
+                        flex:1,
+                      ),
+                    ],
                   ),
                 ],
               ),

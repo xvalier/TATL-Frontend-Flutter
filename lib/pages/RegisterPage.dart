@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class RegisterPage extends StatefulWidget {
-  Client clientModel;
+  final Client clientModel;
   RegisterPage(this.clientModel);
   @override
   RegisterPageState createState() => new RegisterPageState(clientModel);
@@ -47,7 +47,6 @@ class RegisterPageState extends State<RegisterPage> {
         ),
       ),
       backgroundColor: Color(AppColors.white),
-      resizeToAvoidBottomPadding: true,
       body: new Center(
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,141 +57,128 @@ class RegisterPageState extends State<RegisterPage> {
             new Expanded(
               child: new Container(
                 constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
+                margin: const EdgeInsets.all(0.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: Color(AppColors.white),
                   border: Border.all(
                     color: const Color(AppColors.white),
-                    width: 3.5,
+                    width: 5.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: new Text(
-                  '\r\n Please tell us who you are!',
+                  '\r\nCreate an ID',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.clip,
                   style: appTheme.textTheme.headline,
                 ),
               ),
-              flex: 4,
+              flex: 5,
             ),
             //FILL IN FORM
             new Expanded(
-              child: new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.only(left:15.0, right: 20.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.white),
-                  border: Border.all(
-                    color: const Color(AppColors.white),
-                    width: 0.5,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    //USER NAME/EMAIL ENTRY
-                    new Row(
-                      children: <Widget>[
-                        new Text(
-                          'User:     ',
-                          textAlign: TextAlign.left,
-                          style: appTheme.textTheme.caption,
-                        ),
-                        new Flexible(
-                          child: new TextField(
-                            textAlign: TextAlign.left,
-                            style: appTheme.textTheme.caption,
-                            decoration: InputDecoration(
-                              hintText: '   Enter your email here',
-                            ),
-                            controller: username,
-                          ),
-                        ),
-                      ],
-                    ),
-                    //PASSWORD ENTRY
-                    new Row(
-                      children: <Widget>[
-                        new Text(
-                          'Pass:     ',
-                          textAlign: TextAlign.left,
-                          style: appTheme.textTheme.caption,
-                        ),
-                        new Flexible(
-                          child: new TextField(
-                            textAlign: TextAlign.left,
-                            style: appTheme.textTheme.caption,
-                            decoration: InputDecoration(
-                              hintText: '   Enter your password here',
-                            ),
-                            controller: password,
-                            obscureText: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                    //ORG ENTRY
-                    new Row(
-                      children: <Widget>[
-                        new Text(
-                          'Org:      ',
-                          textAlign: TextAlign.left,
-                          style: appTheme.textTheme.caption,
-                        ),
-                        new Flexible(
-                          child: new TextField(
-                            textAlign: TextAlign.left,
-                            style: appTheme.textTheme.caption,
-                            decoration: InputDecoration(
-                              hintText: '   Where do you work',
-                            ),
-                            controller: organization,
-                          ),
-                        ),
-                      ],
-                    ),
-                    //ROLE ENTRY
-                    new Row(
-                      children: <Widget>[
-                        new Text(
-                          'Role:     ',
-                          textAlign: TextAlign.left,
-                          style: appTheme.textTheme.caption,
-                        ),
-                        new Flexible(
-                          child: new TextField(
-                            textAlign: TextAlign.left,
-                            style: appTheme.textTheme.caption,
-                            decoration: InputDecoration(
-                              hintText: '   What is your expertise',
-                            ),
-                            controller: role,
-                          ),
-                        ),
-                      ],
-                    ),
-                    //ERROR MESSAGE
-                    new Container(
-                      margin: const EdgeInsets.only(top: 15.0),
-                      child: new Text(
-                        clientModel.authMessage,
+              child: new ListView(
+                padding: const EdgeInsets.only(top: 5.0,left:15.0, right:15.0),
+                children: <Widget>[
+                  //USER NAME/EMAIL ENTRY
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        'User:     ',
                         textAlign: TextAlign.left,
-                        overflow: TextOverflow.clip,
-                        style: appTheme.textTheme.display1,
+                        style: appTheme.textTheme.caption,
                       ),
+                      new Flexible(
+                        child: new TextField(
+                          textAlign: TextAlign.left,
+                          style: appTheme.textTheme.caption,
+                          decoration: InputDecoration(
+                            hintText: '   Enter your email here',
+                          ),
+                          controller: username,
+                        ),
+                      ),
+                    ],
+                  ),
+                  //PASSWORD ENTRY
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        'Pass:     ',
+                        textAlign: TextAlign.left,
+                        style: appTheme.textTheme.caption,
+                      ),
+                      new Flexible(
+                        child: new TextField(
+                          textAlign: TextAlign.left,
+                          style: appTheme.textTheme.caption,
+                          decoration: InputDecoration(
+                            hintText: '   Enter your password here',
+                          ),
+                          controller: password,
+                          obscureText: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                  //ORG ENTRY
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        'Org:      ',
+                        textAlign: TextAlign.left,
+                        style: appTheme.textTheme.caption,
+                      ),
+                      new Flexible(
+                        child: new TextField(
+                          textAlign: TextAlign.left,
+                          style: appTheme.textTheme.caption,
+                          decoration: InputDecoration(
+                            hintText: '   Where do you work',
+                          ),
+                          controller: organization,
+                        ),
+                      ),
+                    ],
+                  ),
+                  //ROLE ENTRY
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        'Role:     ',
+                        textAlign: TextAlign.left,
+                        style: appTheme.textTheme.caption,
+                      ),
+                      new Flexible(
+                        child: new TextField(
+                          textAlign: TextAlign.left,
+                          style: appTheme.textTheme.caption,
+                          decoration: InputDecoration(
+                            hintText: '   What is your expertise',
+                          ),
+                          controller: role,
+                        ),
+                      ),
+                    ],
+                  ),
+                  //ERROR MESSAGE
+                  new Container(
+                    margin: const EdgeInsets.only(top: 15.0),
+                    child: new Text(
+                      clientModel.authMessage,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.clip,
+                      style: appTheme.textTheme.display1,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               flex: 7,
             ),
             //REGISTER USER BUTTON
             new Expanded(
-              child: new Column(
+              child: new ListView(
                 children: <Widget>[
                   new FloatingActionButton(
                     onPressed: createCredentials,
@@ -204,6 +190,7 @@ class RegisterPageState extends State<RegisterPage> {
                   ),
                   new Text(
                     'Create New User',
+                    textAlign: TextAlign.center,
                     style: appTheme.textTheme.display3,
                   ),
                 ],
