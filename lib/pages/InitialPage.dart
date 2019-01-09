@@ -100,16 +100,16 @@ class InitialPageState extends State<InitialPage> {
             new Expanded(
               child: new Row(
                 children: <Widget>[
-                new Spacer(flex:4),
-                new Expanded(
-                  child: new ListView(
-                    children: <Widget>[
+                  new Spacer(flex:4),
+                  new Expanded(
+                    child: new ListView(
+                      children: <Widget>[
                         new FloatingActionButton(
                           onPressed: captureQuery,
                           backgroundColor: Color(AppColors.blueSaturated),
                           heroTag: 'button1',
                           child: new Icon(
-                              FontAwesomeIcons.search
+                            FontAwesomeIcons.search
                           ),
                         ),
                         new Text(
@@ -117,13 +117,13 @@ class InitialPageState extends State<InitialPage> {
                           textAlign: TextAlign.center,
                           style: appTheme.textTheme.display3,
                         ),
-                    ],
-                  ),
+                      ],
+                    ),
                   flex:1,
-                )
+                  )
                 ],
               ),
-              flex: 1,
+            flex: 1,
             ),
           ],
         ),

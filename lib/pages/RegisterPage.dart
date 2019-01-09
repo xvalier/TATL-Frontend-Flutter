@@ -15,9 +15,7 @@ class RegisterPage extends StatefulWidget {
 //States for the Initial Page
 class RegisterPageState extends State<RegisterPage> {
   Client clientModel;
-
   RegisterPageState(this.clientModel);
-
   //Used to get Navigator to route to all pages based on 'context'
   static Client of(BuildContext context) => ScopedModel.of<Client>(context);
 

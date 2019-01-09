@@ -21,7 +21,7 @@ class ClosePageState extends State<ClosePage> {
 
   //When START OVER button is pressed, go back to Initial page
   void startOver() {
-    setState(() { Navigator.of(context).pushNamed('/'); });
+    setState(() { Navigator.of(context).pushNamed('/initial'); });
   }
   //GUI Layout
   @override
@@ -41,24 +41,24 @@ class ClosePageState extends State<ClosePage> {
               //QUESTION TEXT BOX
               new Expanded(
                 child:new Container(
-                    constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.white),
-                  border: Border.all(
-                    color: const Color(AppColors.white),
-                    width: 0.5,
+                  constraints: BoxConstraints.expand(),
+                  margin: const EdgeInsets.all(5.0),
+                  decoration: new BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Color(AppColors.white),
+                    border: Border.all(
+                      color: const Color(AppColors.white),
+                      width: 0.5,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  child: new Text(
+                    '\r\n\r\n\r\n' + clientModel.closingMessage,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.clip,
+                    style: appTheme.textTheme.headline,
+                  ),
                 ),
-                child: new Text(
-                  clientModel.closingMessage,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.clip,
-                  style: appTheme.textTheme.headline,
-                ),
-              ),
               flex: 5,
             ),
             //START OVER BUTTON

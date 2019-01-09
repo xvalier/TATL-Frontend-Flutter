@@ -47,6 +47,6 @@ class AppColors {
   static const gray           = 0xFFBCCAD1;
   static const whiteCool      = 0xFFE7E7EA;
   static const whiteWarm      = 0xFFE7EBE6;
-  static const white          = 0xFFFFFFF0;
+  static const white          = 0xFFFFFFF6;
 }
 

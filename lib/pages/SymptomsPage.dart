@@ -85,44 +85,46 @@ class SymptomsPageState extends State<SymptomsPage> {
                 margin: const EdgeInsets.all(6.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: Color(AppColors.white),
+                  color: Color(AppColors.whiteWarm),
                   border: Border.all(
                     color: const Color(AppColors.blackCool),
                     width: 2.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(2.0)),
                 ),
-                child: ListView.builder(
-                  itemCount: clientModel.symptoms.length,
-                  //Make Scroll Visible
-                  //Divide each list item
-                  itemBuilder: (context, index){
-                    return Container(
-                      margin: const EdgeInsets.all(10.0),
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: const Color(AppColors.whiteCool),
-                        border: Border.all(
-                          color: const Color(AppColors.blackCool),
-                          width: 2.0,
+                child: new Scrollbar(
+                  child: new ListView.builder(
+                    itemCount: clientModel.symptoms.length,
+                    //Make Scroll Visible
+                    //Divide each list item
+                    itemBuilder: (context, index){
+                      return Container(
+                        margin: const EdgeInsets.all(10.0),
+                        decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: const Color(AppColors.white),
+                          border: Border.all(
+                            color: const Color(AppColors.blackCool),
+                            width: 2.5,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         ),
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: CheckboxListTile(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        title: Text(
-                          '${clientModel.symptoms[index]}',
-                          style: appTheme.textTheme.body2,
+                        child: CheckboxListTile(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          title: Text(
+                            '${clientModel.symptoms[index]}',
+                            style: appTheme.textTheme.body2,
+                          ),
+                          value: checkboxes[index],
+                          onChanged: (bool value){
+                            setState((){
+                              checkboxes[index]=value;
+                            });
+                          },
                         ),
-                        value: checkboxes[index],
-                        onChanged: (bool value){
-                          setState((){
-                            checkboxes[index]=value;
-                          });
-                        },
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
               flex: 7,

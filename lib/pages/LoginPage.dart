@@ -34,6 +34,7 @@ class LoginPageState extends State<LoginPage> {
 
   void navigateRegisterPage() {
     setState(() {
+      clientModel.authMessage="";
       Navigator.of(context).pushNamed('/register');
     });
   }

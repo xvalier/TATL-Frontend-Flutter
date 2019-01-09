@@ -9,7 +9,7 @@ class Client extends BaseModel {
     ErrorResolutionClient stub;
     List<String> symptoms = [];
     String userToken   = "";
-    String authMessage = "";
+    String authMessage = "Need to register user before autologin";
     String nextQuestion;
     bool done;
     bool solved;
@@ -48,18 +48,18 @@ class Client extends BaseModel {
 
     Future<Null> autoLogin(context) async {
         //Encapsulate username and password and send to backend for auth
-        //String did = await DeviceId.getID;
-        //final user = new User()..devID=did;
-        //final receipt = await stub.sendLogin(user);
+        String did = await DeviceId.getID;
+        final user = new User()..devID=did;
+        final receipt = await stub.sendLogin(user);
         //Display message if error is not successful
-        //if (!receipt.successFlag) {
-        //    authMessage = receipt.message;
-        //}
+        if (!receipt.successFlag) {
+            authMessage = receipt.message;
+        }
         //Otherwise, route to initial page
-        //else {
-        //    userToken = receipt.token;
-        Navigator.of(context).pushNamed('/initial');
-        //}
+        else {
+            userToken = receipt.token;
+            Navigator.of(context).pushNamed('/initial');
+        }
         notifyListeners();
     }
 

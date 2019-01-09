@@ -46,9 +46,9 @@ class NextPageState extends State<NextPage> {
             //QUESTION TEXT BOX
             new Expanded(
               child:new Container(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.only(top:6.0,left:8.0, right:8.0),
                 constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.only(top:12.0,left:8.0, right:8.0, bottom: 6.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: Color(AppColors.whiteWarm),
@@ -58,16 +58,18 @@ class NextPageState extends State<NextPage> {
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 ),
-                child: ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: (context, index){
-                    return new Text(
-                      clientModel.nextQuestion,
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.clip,
-                      style: appTheme.textTheme.body1,
-                    );
-                  }
+                child: new Scrollbar(
+                  child: new ListView.builder(
+                    itemCount: 1,
+                    itemBuilder: (context, index){
+                      return new Text(
+                        clientModel.nextQuestion,
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.clip,
+                        style: appTheme.textTheme.caption,
+                      );
+                    }
+                  ),
                 ),
               ),
               flex: 6,
