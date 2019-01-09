@@ -50,17 +50,16 @@ class Client extends baseModel {
         //Encapsulate username and password and send to backend for auth
         String did = await DeviceId.getID;
         final user = new User()..devID=did;
-
-        //final receipt = await stub.sendLogin(user);
+        final receipt = await stub.sendLogin(user);
         //Display message if error is not successful
-        //if (!receipt.successFlag) {
-        //    authMessage = receipt.message;
-        //}
+        if (!receipt.successFlag) {
+            authMessage = receipt.message;
+        }
         //Otherwise, route to initial page
-        //else {
-        //    userToken = receipt.token;
+        else {
+            userToken = receipt.token;
         Navigator.of(context).pushNamed('/initial');
-        //}
+        }
         notifyListeners();
     }
 
