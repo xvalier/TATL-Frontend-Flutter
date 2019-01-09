@@ -17,6 +17,9 @@ final ThemeData appTheme = new ThemeData(
       button: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold, color: Color(AppColors.whiteWarm)),
       body1: TextStyle(fontSize: 14.0, color: Color(AppColors.blackCool)),
       body2: TextStyle(fontSize: 17.0, color: Color(AppColors.blackCool)),
+      display1: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,color: Color(AppColors.redSaturated)),
+      display2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,color: Color(AppColors.blueLight)),
+      display3: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,color: Color(AppColors.blackWarm)),
     )
 );
 

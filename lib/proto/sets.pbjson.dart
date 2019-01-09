@@ -10,6 +10,7 @@ const NewUser$json = const {
     const {'1': 'pass', '3': 2, '4': 1, '5': 9, '10': 'pass'},
     const {'1': 'organization', '3': 3, '4': 1, '5': 9, '10': 'organization'},
     const {'1': 'role', '3': 4, '4': 1, '5': 9, '10': 'role'},
+    const {'1': 'devID', '3': 5, '4': 1, '5': 9, '10': 'devID'},
   ],
 };
 
@@ -18,6 +19,7 @@ const User$json = const {
   '2': const [
     const {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
     const {'1': 'pass', '3': 2, '4': 1, '5': 9, '10': 'pass'},
+    const {'1': 'devID', '3': 3, '4': 1, '5': 9, '10': 'devID'},
   ],
 };
 

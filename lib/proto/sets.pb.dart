@@ -14,6 +14,7 @@ class NewUser extends GeneratedMessage {
     ..aOS(2, 'pass')
     ..aOS(3, 'organization')
     ..aOS(4, 'role')
+    ..aOS(5, 'devID')
     ..hasRequiredFields = false
   ;
 
@@ -52,6 +53,11 @@ class NewUser extends GeneratedMessage {
   set role(String v) { $_setString(3, v); }
   bool hasRole() => $_has(3);
   void clearRole() => clearField(4);
+
+  String get devID => $_getS(4, '');
+  set devID(String v) { $_setString(4, v); }
+  bool hasDevID() => $_has(4);
+  void clearDevID() => clearField(5);
 }
 
 class _ReadonlyNewUser extends NewUser with ReadonlyMessageMixin {}
@@ -60,6 +66,7 @@ class User extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('User')
     ..aOS(1, 'email')
     ..aOS(2, 'pass')
+    ..aOS(3, 'devID')
     ..hasRequiredFields = false
   ;
 
@@ -88,6 +95,11 @@ class User extends GeneratedMessage {
   set pass(String v) { $_setString(1, v); }
   bool hasPass() => $_has(1);
   void clearPass() => clearField(2);
+
+  String get devID => $_getS(2, '');
+  set devID(String v) { $_setString(2, v); }
+  bool hasDevID() => $_has(2);
+  void clearDevID() => clearField(3);
 }
 
 class _ReadonlyUser extends User with ReadonlyMessageMixin {}

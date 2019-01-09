@@ -2,25 +2,29 @@ syntax = "proto3";
 package sets;
 
 service ErrorResolution {
+	//Authentication Services
+	rpc createLogin(NewUser) returns (Receipt) {}
+	rpc sendLogin(User) returns (Receipt) {}
+	//Search and Traversal Services
 	rpc getSymptomList(UserQuery) returns (ServerList) {}
 	rpc startSession(UserSelection) returns (ServerFeedback) {}
 	rpc getNextQuestion(UserFeedback) returns (ServerFeedback) {}
-	rpc sendLogin(User) returns (Receipt) {}
-	rpc createLogin(NewUser) returns (Receipt) {}
 }
 
 //New User
 message NewUser {
 	string email = 1;
-	string pass = 2;
+	string pass  = 2;
 	string organization = 3;
-	string role = 4;
+	string role  = 4;
+	string devID = 5;
 }
 
 //Existing User
 message User {
 	string email = 1;
 	string pass  = 2;
+	string devID = 3;
 }
 
 //Login Receipt (either an error message or route to next page)

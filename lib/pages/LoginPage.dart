@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
 import 'package:sets_frontend_flutter/theme.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
@@ -24,21 +23,26 @@ class LoginPageState extends State<LoginPage> {
   final username = new TextEditingController();
   final password = new TextEditingController();
 
-  //Google Sign In Variables
-  final GoogleSignIn _googleSignIn = new GoogleSignIn();
-
   //When SUBMIT button is pressed, perform below event
-  void checkLogin() {
+  void sendCredentials() {
     setState(() {
       //Process user description to get symptoms, move to symptoms/close page
       clientModel.getStub();
-      clientModel.sendAuth(context, username.text, password.text);
+      clientModel.validateLogin(context, username.text, password.text);
     });
   }
 
-  void routeRegister() {
+  void navigateRegisterPage() {
     setState(() {
       Navigator.of(context).pushNamed('/register');
+    });
+  }
+
+  void automaticLogin() {
+    setState(() {
+      //Process user description to get symptoms, move to symptoms/close page
+      clientModel.getStub();
+      clientModel.autoLogin(context);
     });
   }
 
@@ -83,7 +87,7 @@ class LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: new Text(
-                  'Welcome!',
+                  '\r\n Welcome!',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.clip,
                   style: appTheme.textTheme.headline,
@@ -92,126 +96,175 @@ class LoginPageState extends State<LoginPage> {
               flex: 2,
             ),
             //USER NAME ENTRY
-            new Row(
-              children: <Widget>[
-                new Text(
-                  'User:',
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.clip,
-                  style: appTheme.textTheme.headline,
-                ),
-                new TextField(
-                  style: appTheme.textTheme.caption,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Color(AppColors.gray),
-                    border: InputBorder.none,
-                    hintText: 'Enter your email here',
+            new Expanded(
+              child:new Container(
+                constraints: BoxConstraints.expand(),
+                margin: const EdgeInsets.all(2.0),
+                decoration: new BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Color(AppColors.whiteCool),
+                  border: Border.all(
+                    color: const Color(AppColors.whiteWarm),
+                    width: 0.5,
                   ),
-                  controller: username,
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
-              ]
+                child: new Row(
+                    children: <Widget>[
+                      new Text(
+                        'User:     ',
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.clip,
+                        style: appTheme.textTheme.caption,
+                      ),
+                      new Flexible(
+                        child: new TextField(
+                          textAlign: TextAlign.left,
+                          style: appTheme.textTheme.caption,
+                          decoration: InputDecoration(
+                            //filled: true,
+                            //fillColor: Color(AppColors.gray),
+                            //border: InputBorder.none,
+                            hintText: '   Enter your email here',
+                          ),
+                          controller: username,
+                        ),
+                      ),
+                    ]
+                ),
+              ),
+              flex: 1,
             ),
             //PASSWORD ENTRY
-            new Row(
-                children: <Widget>[
-                  new Text(
-                    'Password:',
-                    textAlign: TextAlign.left,
-                    overflow: TextOverflow.clip,
-                    style: appTheme.textTheme.headline,
+            new Expanded(
+              child:new Container(
+                constraints: BoxConstraints.expand(),
+                margin: const EdgeInsets.all(2.0),
+                decoration: new BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Color(AppColors.whiteCool),
+                  border: Border.all(
+                    color: const Color(AppColors.whiteWarm),
+                    width: 0.5,
                   ),
-                  new TextField(
-                    style: appTheme.textTheme.caption,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(AppColors.gray),
-                      border: InputBorder.none,
-                      hintText: 'Enter your password here',
-                    ),
-                    controller: password,
-                    obscureText: true,
-                  ),
-                ]
-            ),
-            //SUBMIT BUTTON
-            new Container(
-              constraints: BoxConstraints.expand(),
-              margin: const EdgeInsets.all(5.0),
-              decoration: new BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Color(AppColors.bluePrimary),
-                border: Border.all(
-                  color: const Color(AppColors.blueSaturated),
-                  width: 0.5,
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              child: new RaisedButton(
-                onPressed: checkLogin,
-                color: Color(AppColors.bluePrimary),
-                child: new Text(
-                  'SUBMIT',
-                  style: appTheme.textTheme.button,
+                child: new Row(
+                    children: <Widget>[
+                      new Text(
+                        'Pass:     ',
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.clip,
+                        style: appTheme.textTheme.caption,
+                      ),
+                      new Flexible(
+                        child: new TextField(
+                          textAlign: TextAlign.left,
+                          style: appTheme.textTheme.caption,
+                          decoration: InputDecoration(
+                            //filled: true,
+                            //fillColor: Color(AppColors.gray),
+                            //border: InputBorder.none,
+                            hintText: '   Enter your password here',
+                          ),
+                          controller: password,
+                          obscureText: true,
+                        ),
+                      ),
+                    ]
                 ),
               ),
+              flex: 1,
             ),
             //ERROR MESSAGE
-            new Text(
-              clientModel.authMessage,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.clip,
-              style: appTheme.textTheme.headline,
-            ),
-            //REGISTER MESSAGE
-            new Text(
-              'Are you a new user?...',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.clip,
-              style: appTheme.textTheme.headline,
-            ),
-            //REGISTER BUTTON
-            new Container(
-              constraints: BoxConstraints.expand(),
-              margin: const EdgeInsets.all(5.0),
-              decoration: new BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Color(AppColors.bluePrimary),
-                border: Border.all(
-                  color: const Color(AppColors.blueSaturated),
-                  width: 0.5,
+            new Expanded(
+              child:new Container(
+                constraints: BoxConstraints.expand(),
+                margin: const EdgeInsets.only(left: 10.0, right:10.0),
+                decoration: new BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Color(AppColors.whiteCool),
+                  border: Border.all(
+                    color: const Color(AppColors.whiteWarm),
+                    width: 0.5,
+                  ),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              child: new RaisedButton(
-                onPressed: routeRegister,
-                color: Color(AppColors.bluePrimary),
                 child: new Text(
-                'REGISTER',
-                style: appTheme.textTheme.button,
+                  clientModel.authMessage,
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.clip,
+                  style: appTheme.textTheme.display1,
                 ),
               ),
+              flex: 1,
             ),
-            //GOOGLE SIGN IN BUTTON
-            new Container(
-              constraints: BoxConstraints.expand(),
-              margin: const EdgeInsets.all(5.0),
-              decoration: new BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Color(AppColors.bluePrimary),
-                border: Border.all(
-                  color: const Color(AppColors.blueSaturated),
-                  width: 0.5,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            //BUTTON ROW
+            new Expanded(
+              child: new Row(
+                children: <Widget>[
+                  //LOG IN BUTTON
+                  new Expanded(
+                    child: new Column(
+                      children: <Widget>[
+                        new FloatingActionButton(
+                          onPressed: sendCredentials,
+                          backgroundColor: Color(AppColors.redSaturated),
+                          heroTag: 'button1',
+                          child: new Icon(
+                            FontAwesomeIcons.key
+                          ),
+                        ),
+                        new Text(
+                          'Log in',
+                            style: appTheme.textTheme.display3,
+                        ),
+                      ],
+                    ),
+                    flex: 1,
+                  ),
+                  //REGISTER USER BUTTON
+                  new Expanded(
+                    child: new Column(
+                      children: <Widget>[
+                        new FloatingActionButton(
+                          onPressed: navigateRegisterPage,
+                          backgroundColor: Color(AppColors.blueSaturated),
+                          heroTag: 'button2',
+                          child: new Icon(
+                              FontAwesomeIcons.user
+                          ),
+                        ),
+                        new Text(
+                          'Register User',
+                          style: appTheme.textTheme.display3,
+                        ),
+                      ],
+                    ),
+                    flex: 1,
+                  ),
+                  //AUTO LOGIN BUTTON
+                  new Expanded(
+                    child: new Column(
+                      children: <Widget>[
+                        new FloatingActionButton(
+                          onPressed: automaticLogin,
+                          backgroundColor: Color(AppColors.blueSaturated),
+                          heroTag: 'button3',
+                          child: new Icon(
+                              FontAwesomeIcons.forward
+                          ),
+                        ),
+                        new Text(
+                          'Auto Login',
+                          style: appTheme.textTheme.display3,
+                        ),
+                      ],
+                    ),
+                    flex:1,
+                  ),
+                ],
               ),
-              child: new RawMaterialButton(
-                onPressed: googleLogin,
-                child: new Icon(
-                  FontAwesomeIcons.googlePlusG,
-                  color: Colors.red,
-                ),
-              ),
+              flex: 2,
             ),
           ],
         ),
