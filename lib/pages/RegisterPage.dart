@@ -46,7 +46,8 @@ class RegisterPageState extends State<RegisterPage> {
           style: appTheme.textTheme.title,
         ),
       ),
-      backgroundColor: Color(AppColors.whiteCool),
+      backgroundColor: Color(AppColors.white),
+      resizeToAvoidBottomPadding: true,
       body: new Center(
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,36 +61,38 @@ class RegisterPageState extends State<RegisterPage> {
                 margin: const EdgeInsets.all(5.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteCool),
+                  color: Color(AppColors.white),
                   border: Border.all(
-                    color: const Color(AppColors.whiteWarm),
-                    width: 0.5,
+                    color: const Color(AppColors.white),
+                    width: 3.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: new Text(
-                  'Please tell us who you are!',
+                  '\r\n Please tell us who you are!',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.clip,
                   style: appTheme.textTheme.headline,
                 ),
               ),
-              flex: 3,
+              flex: 4,
             ),
             //FILL IN FORM
             new Expanded(
               child: new Container(
                 constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
+                margin: const EdgeInsets.only(left:15.0, right: 20.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteCool),
+                  color: Color(AppColors.white),
                   border: Border.all(
-                    color: const Color(AppColors.whiteWarm),
+                    color: const Color(AppColors.white),
                     width: 0.5,
                   ),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 ),
                 child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     //USER NAME/EMAIL ENTRY
                     new Row(
@@ -136,7 +139,7 @@ class RegisterPageState extends State<RegisterPage> {
                     new Row(
                       children: <Widget>[
                         new Text(
-                          'Org:     ',
+                          'Org:      ',
                           textAlign: TextAlign.left,
                           style: appTheme.textTheme.caption,
                         ),
@@ -172,8 +175,9 @@ class RegisterPageState extends State<RegisterPage> {
                         ),
                       ],
                     ),
+                    //ERROR MESSAGE
                     new Container(
-                      margin: const EdgeInsets.only(top: 10.0),
+                      margin: const EdgeInsets.only(top: 15.0),
                       child: new Text(
                         clientModel.authMessage,
                         textAlign: TextAlign.left,
@@ -184,9 +188,28 @@ class RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
               ),
-              flex: 4,
+              flex: 7,
             ),
-
+            //REGISTER USER BUTTON
+            new Expanded(
+              child: new Column(
+                children: <Widget>[
+                  new FloatingActionButton(
+                    onPressed: createCredentials,
+                    backgroundColor: Color(AppColors.blueSaturated),
+                    heroTag: 'button2',
+                    child: new Icon(
+                        FontAwesomeIcons.user
+                    ),
+                  ),
+                  new Text(
+                    'Create New User',
+                    style: appTheme.textTheme.display3,
+                  ),
+                ],
+              ),
+              flex: 3,
+            ),
           ],
         ),
       ),

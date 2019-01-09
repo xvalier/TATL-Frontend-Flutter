@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
 import 'package:sets_frontend_flutter/theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class ClosePage extends StatefulWidget {
@@ -32,7 +33,7 @@ class ClosePageState extends State<ClosePage> {
           style: appTheme.textTheme.title,
         ),
       ),
-      backgroundColor: Color(AppColors.whiteCool),
+      backgroundColor: Color(AppColors.white),
       body: new Center(
         child: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -44,9 +45,9 @@ class ClosePageState extends State<ClosePage> {
                 margin: const EdgeInsets.all(5.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteCool),
+                  color: Color(AppColors.white),
                   border: Border.all(
-                    color: const Color(AppColors.whiteWarm),
+                    color: const Color(AppColors.white),
                     width: 0.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -62,22 +63,29 @@ class ClosePageState extends State<ClosePage> {
             ),
             //START OVER BUTTON
             new Expanded(
-              child: new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.bluePrimary),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                ),
-                child: new RaisedButton(
-                  onPressed: startOver,
-                  color: Color(AppColors.bluePrimary),
-                  child: new Text(
-                    'START OVER',
-                    style: appTheme.textTheme.button,
-                  ),
-                ),
+              child:new Row(
+                children: <Widget>[
+                  new Spacer(flex:4),
+                  new Expanded(
+                    child: new Column(
+                      children: <Widget>[
+                        new FloatingActionButton(
+                          onPressed: startOver,
+                          backgroundColor: Color(AppColors.blueSaturated),
+                          heroTag: 'button1',
+                          child: new Icon(
+                              FontAwesomeIcons.redo
+                          ),
+                        ),
+                        new Text(
+                          'Start Over',
+                          style: appTheme.textTheme.display3,
+                        ),
+                      ],
+                    ),
+                    flex:1,
+                  )
+                ],
               ),
               flex: 1,
             ),

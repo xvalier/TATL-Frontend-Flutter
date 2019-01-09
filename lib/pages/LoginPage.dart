@@ -65,7 +65,7 @@ class LoginPageState extends State<LoginPage> {
           style: appTheme.textTheme.title,
         ),
       ),
-      backgroundColor: Color(AppColors.whiteCool),
+      backgroundColor: Color(AppColors.white),
       body: new Center(
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,10 +79,10 @@ class LoginPageState extends State<LoginPage> {
                 margin: const EdgeInsets.all(5.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteCool),
+                  color: Color(AppColors.white),
                   border: Border.all(
-                    color: const Color(AppColors.whiteWarm),
-                    width: 0.5,
+                    color: const Color(AppColors.white),
+                    width: 2.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
@@ -93,110 +93,80 @@ class LoginPageState extends State<LoginPage> {
                   style: appTheme.textTheme.headline,
                 ),
               ),
-              flex: 2,
+              flex: 4,
             ),
-            //USER NAME ENTRY
+            //FILL IN FORM
             new Expanded(
-              child:new Container(
+              child: new Container(
                 constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(2.0),
+                margin: const EdgeInsets.only(left:15.0, right: 20.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteCool),
+                  color: Color(AppColors.white),
                   border: Border.all(
-                    color: const Color(AppColors.whiteWarm),
-                    width: 0.5,
+                    color: const Color(AppColors.white),
+                    width: 3.5,
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 ),
-                child: new Row(
-                    children: <Widget>[
-                      new Text(
-                        'User:     ',
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.clip,
-                        style: appTheme.textTheme.caption,
-                      ),
-                      new Flexible(
-                        child: new TextField(
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //USER NAME/EMAIL ENTRY
+                    new Row(
+                      children: <Widget>[
+                        new Text(
+                          'User:     ',
                           textAlign: TextAlign.left,
                           style: appTheme.textTheme.caption,
-                          decoration: InputDecoration(
-                            //filled: true,
-                            //fillColor: Color(AppColors.gray),
-                            //border: InputBorder.none,
-                            hintText: '   Enter your email here',
-                          ),
-                          controller: username,
                         ),
-                      ),
-                    ]
-                ),
-              ),
-              flex: 1,
-            ),
-            //PASSWORD ENTRY
-            new Expanded(
-              child:new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(2.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteCool),
-                  border: Border.all(
-                    color: const Color(AppColors.whiteWarm),
-                    width: 0.5,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: new Row(
-                    children: <Widget>[
-                      new Text(
-                        'Pass:     ',
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.clip,
-                        style: appTheme.textTheme.caption,
-                      ),
-                      new Flexible(
-                        child: new TextField(
+                        new Flexible(
+                          child: new TextField(
+                            textAlign: TextAlign.left,
+                            style: appTheme.textTheme.caption,
+                            decoration: InputDecoration(
+                              hintText: '   Enter your email here',
+                            ),
+                            controller: username,
+                          ),
+                        ),
+                      ],
+                    ),
+                    //PASSWORD ENTRY
+                    new Row(
+                      children: <Widget>[
+                        new Text(
+                          'Pass:     ',
                           textAlign: TextAlign.left,
                           style: appTheme.textTheme.caption,
-                          decoration: InputDecoration(
-                            //filled: true,
-                            //fillColor: Color(AppColors.gray),
-                            //border: InputBorder.none,
-                            hintText: '   Enter your password here',
-                          ),
-                          controller: password,
-                          obscureText: true,
                         ),
+                        new Flexible(
+                          child: new TextField(
+                            textAlign: TextAlign.left,
+                            style: appTheme.textTheme.caption,
+                            decoration: InputDecoration(
+                              hintText: '   Enter your password here',
+                            ),
+                            controller: password,
+                            obscureText: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                    //ERROR MESSAGE
+                    new Container(
+                      margin: const EdgeInsets.only(top: 15.0),
+                      child: new Text(
+                        clientModel.authMessage,
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.clip,
+                        style: appTheme.textTheme.display1,
                       ),
-                    ]
+                    ),
+                  ],
                 ),
               ),
-              flex: 1,
-            ),
-            //ERROR MESSAGE
-            new Expanded(
-              child:new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.only(left: 10.0, right:10.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteCool),
-                  border: Border.all(
-                    color: const Color(AppColors.whiteWarm),
-                    width: 0.5,
-                  ),
-                ),
-                child: new Text(
-                  clientModel.authMessage,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.clip,
-                  style: appTheme.textTheme.display1,
-                ),
-              ),
-              flex: 1,
+              flex: 7,
             ),
             //BUTTON ROW
             new Expanded(
@@ -264,7 +234,7 @@ class LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              flex: 2,
+              flex: 3,
             ),
           ],
         ),

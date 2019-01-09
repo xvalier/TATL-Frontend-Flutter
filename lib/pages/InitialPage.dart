@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
 import 'package:sets_frontend_flutter/theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class InitialPage extends StatefulWidget {
@@ -40,7 +41,7 @@ class InitialPageState extends State<InitialPage> {
           style: appTheme.textTheme.title,
         ),
       ),
-      backgroundColor: Color(AppColors.whiteCool),
+      backgroundColor: Color(AppColors.white),
       body: new Center(
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -52,15 +53,15 @@ class InitialPageState extends State<InitialPage> {
                 margin: const EdgeInsets.all(5.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteCool),
+                  color: Color(AppColors.white),
                   border: Border.all(
-                      color: const Color(AppColors.whiteWarm),
+                      color: const Color(AppColors.white),
                       width: 0.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: new Text(
-                  'What is you issue today?',
+                  '\r\n What is you issue today?',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.clip,
                   style: appTheme.textTheme.headline,
@@ -72,22 +73,21 @@ class InitialPageState extends State<InitialPage> {
             new Expanded(
               child: new Container(
                 constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
+                margin: const EdgeInsets.all(10.0),
                 decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: Color(AppColors.gray),
+                  color: Color(AppColors.whiteWarm),
                   border: Border.all(
-                    color: const Color(AppColors.gray),
-                    width: 0.5,
+                    color: const Color(AppColors.blackCool),
+                    width: 2.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
                 child: new TextField(
                   style: appTheme.textTheme.caption,
-
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Color(AppColors.gray),
+                    fillColor: Color(AppColors.whiteWarm),
                     border: InputBorder.none,
                     hintText: 'Enter your issue here...',
                   ),
@@ -98,26 +98,29 @@ class InitialPageState extends State<InitialPage> {
             ),
             //SUBMIT BUTTON
             new Expanded(
-              child: new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.bluePrimary),
-                  border: Border.all(
-                    color: const Color(AppColors.blueSaturated),
-                    width: 0.5,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                ),
-                child: new RaisedButton(
-                  onPressed: captureQuery,
-                  color: Color(AppColors.bluePrimary),
-                  child: new Text(
-                    'SUBMIT',
-                    style: appTheme.textTheme.button,
-                  ),
-                ),
+              child:new Row(
+                children: <Widget>[
+                  new Spacer(flex:4),
+                  new Expanded(
+                    child: new Column(
+                      children: <Widget>[
+                        new FloatingActionButton(
+                          onPressed: captureQuery,
+                          backgroundColor: Color(AppColors.blueSaturated),
+                          heroTag: 'button1',
+                          child: new Icon(
+                              FontAwesomeIcons.search
+                          ),
+                        ),
+                        new Text(
+                          'Search',
+                          style: appTheme.textTheme.display3,
+                        ),
+                      ],
+                    ),
+                    flex:1,
+                  )
+                ],
               ),
               flex: 1,
             ),
