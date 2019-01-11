@@ -9,7 +9,8 @@ class Client extends BaseModel {
     ErrorResolutionClient stub;
     List<String> symptoms = [];
     String userToken   = "";
-    String authMessage = "";
+    String loginErrorMessage = "";
+    String registerErrorMessage = "";
     String nextQuestion;
     bool done;
     bool solved;
@@ -19,7 +20,7 @@ class Client extends BaseModel {
 
     Future<Null> getStub() async {
         final channel = new ClientChannel(
-            '10.0.2.2',//'104.196.188.181',
+            '104.196.188.181',//'10.0.2.2',
             port: 4040,
             options: const ChannelOptions(credentials: const ChannelCredentials.insecure()
             )
@@ -38,12 +39,13 @@ class Client extends BaseModel {
         //Display message if error is not successful
         if (!receipt.successFlag) {
             print('Authentication not successful');
-            authMessage = receipt.message;
+            loginErrorMessage = receipt.message;
+            Navigator.of(context).pushNamed('/');
         }
         //Otherwise, route to initial page
         else {
             print('Authentication is successful, routing now');
-            authMessage = '';
+            loginErrorMessage = '';
             userToken = receipt.token;
             Navigator.of(context).pushNamed('/initial');
         }
@@ -62,7 +64,8 @@ class Client extends BaseModel {
         //Display message if error is not successful
         if (!receipt.successFlag) {
             print('Authentication not successful');
-            authMessage = receipt.message;
+            loginErrorMessage = receipt.message;
+            Navigator.of(context).pushNamed('/');
         }
         //Otherwise, route to initial page
         else {
@@ -90,12 +93,14 @@ class Client extends BaseModel {
         //Display message if error is not successful
         if (!receipt.successFlag) {
             print('Authentication was unsuccessful');
-            authMessage = receipt.message; }
+            registerErrorMessage = receipt.message;
+            Navigator.of(context).pushNamed('/register');
+        }
         //Otherwise, route to initial page
         else {
             print('Authentication is successful');
             userToken = receipt.token;
-            Navigator.of(context).pushNamed('/');
+            Navigator.of(context).pushNamed('/initial');
         }
         notifyListeners();
     }
@@ -136,10 +141,8 @@ class Client extends BaseModel {
     Future<Null> getQuestion(context, feedback) async {
         print('getQuestion function call');
         final userFeedback = new UserFeedback()..input = feedback;
-        print('Generated feedback:'+feedback);
         final question = await stub.getNextQuestion(userFeedback);
         print('Sent feedback');
-        print('Received Server Feedback for' + feedback);
         processQuestion(question);
         if(done){
             if(solved){ setCloser('Problem is solved!'); }

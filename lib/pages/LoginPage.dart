@@ -29,13 +29,16 @@ class LoginPageState extends State<LoginPage> {
       //Process user description to get symptoms, move to symptoms/close page
       clientModel.getStub();
       clientModel.validateLogin(context, username.text, password.text);
+      username.clear();
+      password.clear();
     });
   }
 
   void navigateRegisterPage() {
     setState(() {
       print('Navigating to Register Page');
-      clientModel.authMessage="";
+      clientModel.loginErrorMessage = "";
+      clientModel.registerErrorMessage = "";
       Navigator.of(context).pushNamed('/register');
     });
   }
@@ -139,7 +142,7 @@ class LoginPageState extends State<LoginPage> {
                     new Container(
                       margin: const EdgeInsets.only(top: 15.0),
                       child: new Text(
-                        clientModel.authMessage,
+                        clientModel.loginErrorMessage,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.clip,
                         style: appTheme.textTheme.display1,

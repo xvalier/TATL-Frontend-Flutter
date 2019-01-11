@@ -31,6 +31,7 @@ class RegisterPageState extends State<RegisterPage> {
       //Send new user information to backend and log in simulataneously
       clientModel.getStub();
       clientModel.generateLogin(context, username.text, password.text, organization.text, role.text);
+      password.clear();
     });
   }
 
@@ -164,7 +165,7 @@ class RegisterPageState extends State<RegisterPage> {
                   new Container(
                     margin: const EdgeInsets.only(top: 15.0),
                     child: new Text(
-                      clientModel.authMessage,
+                      clientModel.registerErrorMessage,
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.clip,
                       style: appTheme.textTheme.display1,
