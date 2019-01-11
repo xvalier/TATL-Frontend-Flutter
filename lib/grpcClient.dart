@@ -9,7 +9,7 @@ class Client extends BaseModel {
     ErrorResolutionClient stub;
     List<String> symptoms = [];
     String userToken   = "";
-    String authMessage = "Need to register user before autologin";
+    String authMessage = "";
     String nextQuestion;
     bool done;
     bool solved;
@@ -19,7 +19,7 @@ class Client extends BaseModel {
 
     Future<Null> getStub() async {
         final channel = new ClientChannel(
-            '104.196.188.181',
+            '10.0.2.2',//'104.196.188.181',
             port: 4040,
             options: const ChannelOptions(credentials: const ChannelCredentials.insecure()
             )
@@ -29,16 +29,20 @@ class Client extends BaseModel {
     }
 
     Future<Null> validateLogin(context, name, pass) async {
+        print('Entered validateLogin function on frontend');
         //Encapsulate username and password and send to backend for auth
-        String did = await DeviceId.getID;
-        final user = new User()..email=name..pass=pass..devID=did;
+        final user = new User()..email=name..password=pass;
+        print('Encapsulated User message');
         final receipt = await stub.sendLogin(user);
+        print('Sent User message and received receipt');
         //Display message if error is not successful
         if (!receipt.successFlag) {
+            print('Authentication not successful');
             authMessage = receipt.message;
         }
         //Otherwise, route to initial page
         else {
+            print('Authentication is successful, routing now');
             authMessage = '';
             userToken = receipt.token;
             Navigator.of(context).pushNamed('/initial');
@@ -47,16 +51,22 @@ class Client extends BaseModel {
     }
 
     Future<Null> autoLogin(context) async {
+        print('Entered autoLogin function on frontend');
         //Encapsulate username and password and send to backend for auth
         String did = await DeviceId.getID;
-        final user = new User()..devID=did;
-        final receipt = await stub.sendLogin(user);
+        print('Received device id:'+did);
+        final user = new AutoUser()..devID=did;
+        print('Encapsulated User message');
+        final receipt = await stub.automaticLogin(user);
+        print('Sent User message and received receipt');
         //Display message if error is not successful
         if (!receipt.successFlag) {
+            print('Authentication not successful');
             authMessage = receipt.message;
         }
         //Otherwise, route to initial page
         else {
+            print('Authentication was successful, token is:'+receipt.token);
             userToken = receipt.token;
             Navigator.of(context).pushNamed('/initial');
         }
@@ -64,26 +74,31 @@ class Client extends BaseModel {
     }
 
     Future<Null> generateLogin(context, name, pass, org, role) async {
+        print('Entered generateLogin function call');
         //Encapsulate username and password and send to backend for auth
         String did = await DeviceId.getID;
+        print('Received device id:'+did);
         final newUser = new NewUser()
             ..email=name
-            ..pass=pass
+            ..password=pass
             ..organization=org
             ..role=role
             ..devID=did;
+        print('Created message');
         final receipt = await stub.createLogin(newUser);
+        print('Send message to backend, got receipt');
         //Display message if error is not successful
-        if (!receipt.successFlag) { authMessage = receipt.message; }
+        if (!receipt.successFlag) {
+            print('Authentication was unsuccessful');
+            authMessage = receipt.message; }
         //Otherwise, route to initial page
         else {
+            print('Authentication is successful');
             userToken = receipt.token;
             Navigator.of(context).pushNamed('/');
         }
         notifyListeners();
     }
-
-
 
     Future<Null> getSymptoms(context, text) async {
         //Process user description to get list of relevant symptoms
@@ -119,8 +134,12 @@ class Client extends BaseModel {
 
     //Take in user yes/no answer to get next question to ask
     Future<Null> getQuestion(context, feedback) async {
+        print('getQuestion function call');
         final userFeedback = new UserFeedback()..input = feedback;
+        print('Generated feedback:'+feedback);
         final question = await stub.getNextQuestion(userFeedback);
+        print('Sent feedback');
+        print('Received Server Feedback for' + feedback);
         processQuestion(question);
         if(done){
             if(solved){ setCloser('Problem is solved!'); }
@@ -134,6 +153,7 @@ class Client extends BaseModel {
       nextQuestion = question.input;
       done = question.doneFlag;
       solved = question.solvedFlag;
+      print(nextQuestion+'   ' + done.toString() + '   ' + solved.toString());
       notifyListeners();
     }
 

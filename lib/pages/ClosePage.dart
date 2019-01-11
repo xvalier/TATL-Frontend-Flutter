@@ -29,7 +29,7 @@ class ClosePageState extends State<ClosePage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'Closing Page',
+          'Xyntek Curated Troubleshooting',
           style: appTheme.textTheme.title,
         ),
       ),

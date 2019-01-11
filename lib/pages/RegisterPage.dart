@@ -30,7 +30,7 @@ class RegisterPageState extends State<RegisterPage> {
     setState(() {
       //Send new user information to backend and log in simulataneously
       clientModel.getStub();
-      clientModel.generateLogin(context, username, password, organization, role);
+      clientModel.generateLogin(context, username.text, password.text, organization.text, role.text);
     });
   }
 
@@ -40,7 +40,7 @@ class RegisterPageState extends State<RegisterPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'Register Page',
+          'Xyntek Curated Troubleshooting',
           style: appTheme.textTheme.title,
         ),
       ),

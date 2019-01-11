@@ -46,7 +46,7 @@ class SymptomsPageState extends State<SymptomsPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'Symptoms Page',
+          'Xyntek Curated Troubleshooting',
           style: appTheme.textTheme.title,
         ),
       ),

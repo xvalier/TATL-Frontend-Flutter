@@ -37,7 +37,7 @@ class InitialPageState extends State<InitialPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'Initial Page',
+          'Xyntek Curated Troubleshooting',
           style: appTheme.textTheme.title,
         ),
       ),

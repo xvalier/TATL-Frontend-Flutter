@@ -11,7 +11,7 @@ import 'package:protobuf/protobuf.dart';
 class NewUser extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('NewUser')
     ..aOS(1, 'email')
-    ..aOS(2, 'pass')
+    ..aOS(2, 'password')
     ..aOS(3, 'organization')
     ..aOS(4, 'role')
     ..aOS(5, 'devID')
@@ -39,10 +39,10 @@ class NewUser extends GeneratedMessage {
   bool hasEmail() => $_has(0);
   void clearEmail() => clearField(1);
 
-  String get pass => $_getS(1, '');
-  set pass(String v) { $_setString(1, v); }
-  bool hasPass() => $_has(1);
-  void clearPass() => clearField(2);
+  String get password => $_getS(1, '');
+  set password(String v) { $_setString(1, v); }
+  bool hasPassword() => $_has(1);
+  void clearPassword() => clearField(2);
 
   String get organization => $_getS(2, '');
   set organization(String v) { $_setString(2, v); }
@@ -65,8 +65,7 @@ class _ReadonlyNewUser extends NewUser with ReadonlyMessageMixin {}
 class User extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('User')
     ..aOS(1, 'email')
-    ..aOS(2, 'pass')
-    ..aOS(3, 'devID')
+    ..aOS(2, 'password')
     ..hasRequiredFields = false
   ;
 
@@ -91,18 +90,43 @@ class User extends GeneratedMessage {
   bool hasEmail() => $_has(0);
   void clearEmail() => clearField(1);
 
-  String get pass => $_getS(1, '');
-  set pass(String v) { $_setString(1, v); }
-  bool hasPass() => $_has(1);
-  void clearPass() => clearField(2);
-
-  String get devID => $_getS(2, '');
-  set devID(String v) { $_setString(2, v); }
-  bool hasDevID() => $_has(2);
-  void clearDevID() => clearField(3);
+  String get password => $_getS(1, '');
+  set password(String v) { $_setString(1, v); }
+  bool hasPassword() => $_has(1);
+  void clearPassword() => clearField(2);
 }
 
 class _ReadonlyUser extends User with ReadonlyMessageMixin {}
+
+class AutoUser extends GeneratedMessage {
+  static final BuilderInfo _i = new BuilderInfo('AutoUser')
+    ..aOS(1, 'devID')
+    ..hasRequiredFields = false
+  ;
+
+  AutoUser() : super();
+  AutoUser.fromBuffer(List<int> i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  AutoUser.fromJson(String i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  AutoUser clone() => new AutoUser()..mergeFromMessage(this);
+  BuilderInfo get info_ => _i;
+  static AutoUser create() => new AutoUser();
+  static PbList<AutoUser> createRepeated() => new PbList<AutoUser>();
+  static AutoUser getDefault() {
+    if (_defaultInstance == null) _defaultInstance = new _ReadonlyAutoUser();
+    return _defaultInstance;
+  }
+  static AutoUser _defaultInstance;
+  static void $checkItem(AutoUser v) {
+    if (v is! AutoUser) checkItemFailed(v, 'AutoUser');
+  }
+
+  String get devID => $_getS(0, '');
+  set devID(String v) { $_setString(0, v); }
+  bool hasDevID() => $_has(0);
+  void clearDevID() => clearField(1);
+}
+
+class _ReadonlyAutoUser extends AutoUser with ReadonlyMessageMixin {}
 
 class Receipt extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('Receipt')

@@ -23,10 +23,14 @@ class NextPageState extends State<NextPage> {
 
   //When YES/NO button is pressed, perform below event
   void captureYes() {
-    setState(() { clientModel.getQuestion(context, true);});
+    setState(() {
+      print('captured a yes');
+      clientModel.getQuestion(context, true);});
   }
   void captureNo() {
-    setState(() {clientModel.getQuestion(context, false);});
+    setState(() {
+      print('captured a yes');
+      clientModel.getQuestion(context, false);});
   }
 
   @override
@@ -34,7 +38,7 @@ class NextPageState extends State<NextPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'Next Question Page',
+          'Xyntek Curated Troubleshooting',
           style: appTheme.textTheme.title,
         ),
       ),

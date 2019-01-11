@@ -5,6 +5,7 @@ service ErrorResolution {
 	//Authentication Services
 	rpc createLogin(NewUser) returns (Receipt) {}
 	rpc sendLogin(User) returns (Receipt) {}
+	rpc automaticLogin(AutoUser) returns (Receipt) {}
 	//Search and Traversal Services
 	rpc getSymptomList(UserQuery) returns (ServerList) {}
 	rpc startSession(UserSelection) returns (ServerFeedback) {}
@@ -14,7 +15,7 @@ service ErrorResolution {
 //New User
 message NewUser {
 	string email = 1;
-	string pass  = 2;
+	string password  = 2;
 	string organization = 3;
 	string role  = 4;
 	string devID = 5;
@@ -23,8 +24,12 @@ message NewUser {
 //Existing User
 message User {
 	string email = 1;
-	string pass  = 2;
-	string devID = 3;
+	string password  = 2;
+}
+
+//For automatic login (on single user devices)
+message AutoUser {
+	string devID = 1;
 }
 
 //Login Receipt (either an error message or route to next page)

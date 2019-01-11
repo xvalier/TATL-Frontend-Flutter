@@ -34,6 +34,7 @@ class LoginPageState extends State<LoginPage> {
 
   void navigateRegisterPage() {
     setState(() {
+      print('Navigating to Register Page');
       clientModel.authMessage="";
       Navigator.of(context).pushNamed('/register');
     });
@@ -41,18 +42,10 @@ class LoginPageState extends State<LoginPage> {
 
   void automaticLogin() {
     setState(() {
+      print('Performing automatic login');
       //Process user description to get symptoms, move to symptoms/close page
       clientModel.getStub();
       clientModel.autoLogin(context);
-    });
-  }
-
-  //TO DO Fix this later....
-  void googleLogin() {
-    setState(() {
-      //Process user description to get symptoms, move to symptoms/close page
-      clientModel.getStub();
-      //clientModel.getSymptoms(context);
     });
   }
 
@@ -62,7 +55,7 @@ class LoginPageState extends State<LoginPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'Login Page',
+          'Xyntek Curated Troubleshooting',
           style: appTheme.textTheme.title,
         ),
       ),
