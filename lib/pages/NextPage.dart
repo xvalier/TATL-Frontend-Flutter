@@ -25,12 +25,17 @@ class NextPageState extends State<NextPage> {
   void captureYes() {
     setState(() {
       print('captured a yes');
-      clientModel.getQuestion(context, true);});
+      clientModel.getQuestion(context, true);
+      Navigator.of(context).pushNamed('/next');
+    });
   }
   void captureNo() {
     setState(() {
-      print('captured a yes');
-      clientModel.getQuestion(context, false);});
+      print('captured a no');
+      clientModel.getQuestion(context, false);
+      Navigator.of(context).pushNamed('/next');
+    });
+
   }
 
   @override
