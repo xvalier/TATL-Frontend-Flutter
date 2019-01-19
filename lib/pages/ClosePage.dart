@@ -3,6 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
 import 'package:sets_frontend_flutter/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sets_frontend_flutter/pages/GUIElements.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class ClosePage extends StatefulWidget {
@@ -27,69 +28,36 @@ class ClosePageState extends State<ClosePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(
-          'Xyntek Curated Troubleshooting',
-          style: appTheme.textTheme.title,
-        ),
-      ),
+      appBar:  Header(title:'Xyntek Curated Troubleshooting',height:0),
       backgroundColor: Color(AppColors.white),
       body: new Center(
         child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              //QUESTION TEXT BOX
-              new Expanded(
-                child:new Container(
-                  constraints: BoxConstraints.expand(),
-                  margin: const EdgeInsets.all(5.0),
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Color(AppColors.white),
-                    border: Border.all(
-                      color: const Color(AppColors.white),
-                      width: 0.5,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  child: new Text(
-                    '\r\n\r\n\r\n' + clientModel.closingMessage,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.clip,
-                    style: appTheme.textTheme.headline,
-                  ),
-                ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            //QUESTION TEXT BOX
+            new TextDisplay(
+              message: '\r\n\r\n\r\n' + clientModel.closingMessage,
+              margin: 5.0,
+              color: AppColors.white,
+              border: 5.0,
               flex: 5,
             ),
             //START OVER BUTTON
-            new Expanded(
-              child:new Row(
-                children: <Widget>[
-                  new Spacer(flex:4),
-                  new Expanded(
-                    child: new Column(
-                      children: <Widget>[
-                        new FloatingActionButton(
-                          onPressed: startOver,
-                          backgroundColor: Color(AppColors.blueSaturated),
-                          heroTag: 'button1',
-                          child: new Icon(
-                              FontAwesomeIcons.redo
-                          ),
-                        ),
-                        new Text(
-                          'Start Over',
-                          style: appTheme.textTheme.display3,
-                        ),
-                      ],
-                    ),
-                    flex:1,
-                  )
-                ],
-              ),
+            new ButtonRow(
+              widgets:[
+                new Spacer(flex:4),
+                new CustomButton(
+                  function: startOver,
+                  color: AppColors.blueSaturated,
+                  tag: '1',
+                  icon: FontAwesomeIcons.redo,
+                  text: 'Start Over',
+                  flex: 1,
+                ),
+              ],
               flex: 1,
             ),
-          ],
+          ]
         ),
       ),
     );

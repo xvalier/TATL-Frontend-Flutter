@@ -40,14 +40,14 @@ class Client extends BaseModel {
         if (!receipt.successFlag) {
             print('Authentication not successful');
             loginErrorMessage = receipt.message;
-            Navigator.of(context).pushNamed('/');
+            Navigator.of(context).pushReplacementNamed('/');
         }
         //Otherwise, route to initial page
         else {
             print('Authentication is successful, routing now');
             loginErrorMessage = '';
             userToken = receipt.token;
-            Navigator.of(context).pushNamed('/initial');
+            Navigator.of(context).pushReplacementNamed('/initial');
         }
         notifyListeners();
     }
@@ -65,13 +65,13 @@ class Client extends BaseModel {
         if (!receipt.successFlag) {
             print('Authentication not successful');
             loginErrorMessage = receipt.message;
-            Navigator.of(context).pushNamed('/');
+            Navigator.of(context).pushReplacementNamed('/');
         }
         //Otherwise, route to initial page
         else {
             print('Authentication was successful, token is:'+receipt.token);
             userToken = receipt.token;
-            Navigator.of(context).pushNamed('/initial');
+            Navigator.of(context).pushReplacementNamed('/initial');
         }
         notifyListeners();
     }
@@ -100,7 +100,7 @@ class Client extends BaseModel {
         else {
             print('Authentication is successful');
             userToken = receipt.token;
-            Navigator.of(context).pushNamed('/initial');
+            Navigator.of(context).pushReplacementNamed('/initial');
         }
         notifyListeners();
     }
