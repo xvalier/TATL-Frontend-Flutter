@@ -18,7 +18,7 @@ class NextPageState extends State<NextPage> {
   NextPageState(this.clientModel);
   //Used to get Navigator to route to all pages based on 'context'
   static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
-  //Controller to capture input from textField
+  //Variable for Text widget
   String question = "";
 
   void initState(){

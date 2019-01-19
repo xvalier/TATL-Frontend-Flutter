@@ -92,6 +92,7 @@ class InitialPageState extends State<InitialPage> {
                     hintText: 'Enter your issue here...',
                   ),
                   controller: textInput,
+                  maxLines: null,
                 ),
               ),
               flex: 3,
