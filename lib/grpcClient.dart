@@ -11,14 +11,14 @@ class Client extends BaseModel {
     String userToken   = "";
     String loginErrorMessage = "";
     String registerErrorMessage = "";
-    String nextQuestion;
+    String nextQuestion="";
     bool done;
     bool solved;
     String closingMessage;
     //Used to get Navigator to route to all pages based on 'context'
     static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
 
-    Future<Null> getStub() async {
+     void getStub() {
         final channel = new ClientChannel(
             /*'10.0.2.2',*/'104.196.188.181',
             port: 4040,
@@ -129,7 +129,7 @@ class Client extends BaseModel {
     Future<Null> getFirstQuestion(context, selection) async {
         final userSelection = UserSelection()..input=selection;
         final question = await stub.startSession(userSelection);
-        processQuestion(question);
+        processQuestion(context, question);
         if(done){
             setCloser('No symptoms/resolutions match your choices.');
             Navigator.of(context).pushNamed('/close');
@@ -138,12 +138,14 @@ class Client extends BaseModel {
     }
 
     //Take in user yes/no answer to get next question to ask
-    Future<Null> getQuestion(context, feedback) async {
+     Future<Null> getQuestion(context, feedback) async {
         print('getQuestion function call');
         final userFeedback = new UserFeedback()..input = feedback;
-        final question = await stub.getNextQuestion(userFeedback);
+        await stub.getNextQuestion(userFeedback).then((ServerFeedback) {
+            processQuestion(context, ServerFeedback);
+        });
         print('Sent feedback');
-        processQuestion(question);
+        //await processQuestion(question);
         if(done){
             if(solved){ setCloser('Problem is solved!'); }
             else{ setCloser('No records match your issue');}
@@ -152,7 +154,7 @@ class Client extends BaseModel {
     }
 
     //Extract attribute information from gRPC message
-    void processQuestion(question){
+    void processQuestion(context, question) {
       nextQuestion = question.input;
       done = question.doneFlag;
       solved = question.solvedFlag;

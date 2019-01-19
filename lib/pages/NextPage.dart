@@ -19,23 +19,27 @@ class NextPageState extends State<NextPage> {
   //Used to get Navigator to route to all pages based on 'context'
   static Client of(BuildContext context)=> ScopedModel.of<Client>(context);
   //Controller to capture input from textField
-  final textInput = new TextEditingController();
+  String question = "";
+
+  void initState(){
+    super.initState();
+    question = clientModel.nextQuestion;
+  }
 
   //When YES/NO button is pressed, perform below event
   void captureYes() {
-    setState(() {
-      print('captured a yes');
-      clientModel.getQuestion(context, true);
-      Navigator.of(context).pushNamed('/next');
+    print('captured a yes');
+    clientModel.getQuestion(context, true).then((_) {
+      print('Back on next page');
+      setState(() { question = clientModel.nextQuestion; });
     });
   }
   void captureNo() {
-    setState(() {
-      print('captured a no');
-      clientModel.getQuestion(context, false);
-      Navigator.of(context).pushNamed('/next');
+    print('captured a no');
+    clientModel.getQuestion(context, false).then((_) {
+      print('Back on next page');
+      setState(() { question = clientModel.nextQuestion; });
     });
-
   }
 
   @override
@@ -72,7 +76,7 @@ class NextPageState extends State<NextPage> {
                     itemCount: 1,
                     itemBuilder: (context, index){
                       return new Text(
-                        clientModel.nextQuestion,
+                        question,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.clip,
                         style: appTheme.textTheme.caption,
