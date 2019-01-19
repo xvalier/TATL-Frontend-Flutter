@@ -20,7 +20,7 @@ class Client extends BaseModel {
 
     Future<Null> getStub() async {
         final channel = new ClientChannel(
-            '10.0.2.2',//'104.196.188.181'
+            /*'10.0.2.2',*/'104.196.188.181',
             port: 4040,
             options: const ChannelOptions(credentials: const ChannelCredentials.insecure()
             )
