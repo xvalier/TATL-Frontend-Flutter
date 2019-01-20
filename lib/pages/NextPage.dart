@@ -46,13 +46,17 @@ class NextPageState extends State<NextPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar:  Header(message:'Xyntek Curated Troubleshooting'),
+      appBar: new AppBar(
+        title: new Text( 'Xyntek Curated Troubleshooting',
+          style: appTheme.textTheme.title,
+        ),
+      ),
       backgroundColor: Color(AppColors.white),
       body: new Center(
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            //QUESTION TEXT BOX
+            //QUESTION TEXT DISPLAY
             NextPageDisplay(
               message: question,
               pad:    8.0,
@@ -79,7 +83,7 @@ class NextPageState extends State<NextPage> {
                   color: AppColors.redLight,
                   tag: '2',
                   icon: FontAwesomeIcons.times,
-                  text: 'Yes',
+                  text: 'No',
                   flex: 1,
                 ),
               ],

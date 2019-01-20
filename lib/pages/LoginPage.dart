@@ -3,6 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
 import 'package:sets_frontend_flutter/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sets_frontend_flutter/pages/GUIElements.dart';
 
 //Initial Page (Home) Widget. Contains state config for fields that affect appearence
 class LoginPage extends StatefulWidget {
@@ -57,8 +58,7 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(
-          'Xyntek Curated Troubleshooting',
+        title: new Text( 'Xyntek Curated Troubleshooting',
           style: appTheme.textTheme.title,
         ),
       ),
@@ -70,158 +70,66 @@ class LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             //Welcome TEXT BOX
-            new Expanded(
-              child:new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.white),
-                  border: Border.all(
-                    color: const Color(AppColors.white),
-                    width: 2.5,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: new Text(
-                  '\r\n Welcome!',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.clip,
-                  style: appTheme.textTheme.headline,
-                ),
-              ),
+            TextDisplay(
+              message: '\r\n Welcome!',
+              margin: 5.0,
+              color: AppColors.white,
+              border: 5.0,
               flex: 4,
             ),
             //FILL IN FORM
-            new Expanded(
-              child: new ListView(
-                padding: const EdgeInsets.only(left:15.0, right:15.0),
-                children: <Widget>[
-                    //USER NAME/EMAIL ENTRY
-                    new Row(
-                      children: <Widget>[
-                        new Text(
-                          'User:     ',
-                          textAlign: TextAlign.left,
-                          style: appTheme.textTheme.caption,
-                        ),
-                        new Flexible(
-                          child: new TextField(
-                            textAlign: TextAlign.left,
-                            style: appTheme.textTheme.caption,
-                            decoration: InputDecoration(
-                              hintText: '   Enter your email here',
-                            ),
-                            controller: username,
-                          ),
-                        ),
-                      ],
-                    ),
-                    //PASSWORD ENTRY
-                    new Row(
-                      children: <Widget>[
-                        new Text(
-                          'Pass:     ',
-                          textAlign: TextAlign.left,
-                          style: appTheme.textTheme.caption,
-                        ),
-                        new Flexible(
-                          child: new TextField(
-                            textAlign: TextAlign.left,
-                            style: appTheme.textTheme.caption,
-                            decoration: InputDecoration(
-                              hintText: '   Enter your password here',
-                            ),
-                            controller: password,
-                            obscureText: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                    //ERROR MESSAGE
-                    new Container(
-                      margin: const EdgeInsets.only(top: 15.0),
-                      child: new Text(
-                        clientModel.loginErrorMessage,
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.clip,
-                        style: appTheme.textTheme.display1,
-                      ),
-                    ),
-                  ],
+            FullForm(
+              rows: [
+                //USER NAME ENTRY
+                FormRow(
+                  label: 'User:   ',
+                  hint: '   Enter your email here',
+                  controller: username,
+                  mask: false,
                 ),
-                flex:7,
+                //PASSWORD ENTRY
+                FormRow(
+                  label: 'Pass:   ',
+                  hint: '   Enter your password here',
+                  controller: password,
+                  mask: true,
+                ),
+                //ERROR MESSAGE
+                ErrorMessage(message:clientModel.loginErrorMessage),
+              ],
+              flex: 7,
             ),
             //BUTTON ROW
-            new Expanded(
-              child: new ListView(
-                children: <Widget>[
-                  new Row(
-                    children: <Widget>[
-                      //LOG IN BUTTON
-                      new Expanded(
-                        child: new Column(
-                          children: <Widget>[
-                            new FloatingActionButton(
-                              onPressed: sendCredentials,
-                              backgroundColor: Color(AppColors.redSaturated),
-                              heroTag: 'button1',
-                              child: new Icon(
-                                  FontAwesomeIcons.key
-                              ),
-                            ),
-                            new Text(
-                              'Log in',
-                              style: appTheme.textTheme.display3,
-                            ),
-                          ],
-                        ),
-                        flex: 1,
-                      ),
-                      //REGISTER USER BUTTON
-                      new Expanded(
-                        child: new Column(
-                          children: <Widget>[
-                            new FloatingActionButton(
-                              onPressed: navigateRegisterPage,
-                              backgroundColor: Color(AppColors.blueSaturated),
-                              heroTag: 'button2',
-                              child: new Icon(
-                                  FontAwesomeIcons.user
-                              ),
-                            ),
-                            new Text(
-                              'Register User',
-                              style: appTheme.textTheme.display3,
-                            ),
-                          ],
-                        ),
-                        flex: 1,
-                      ),
-                      //AUTO LOGIN BUTTON
-                      new Expanded(
-                        child: new Column(
-                          children: <Widget>[
-                            new FloatingActionButton(
-                              onPressed: automaticLogin,
-                              backgroundColor: Color(AppColors.blueSaturated),
-                              heroTag: 'button3',
-                              child: new Icon(
-                                  FontAwesomeIcons.forward
-                              ),
-                            ),
-                            new Text(
-                              'Auto Login',
-                              style: appTheme.textTheme.display3,
-                            ),
-                          ],
-                        ),
-                        flex:1,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            ButtonRow(
+              widgets:[
+                //LOGIN BUTTON
+                CustomButton(
+                  function: sendCredentials,
+                  color: AppColors.redSaturated,
+                  tag: '1',
+                  icon: FontAwesomeIcons.key,
+                  text: 'Log In',
+                  flex: 1,
+                ),
+                //REGISTER BUTTON
+                CustomButton(
+                  function: navigateRegisterPage,
+                  color: AppColors.blueSaturated,
+                  tag: '2',
+                  icon: FontAwesomeIcons.user,
+                  text: 'Register User',
+                  flex: 1,
+                ),
+                //AUTLOGIN BUTTON
+                CustomButton(
+                  function: automaticLogin,
+                  color: AppColors.blueSaturated,
+                  tag: '3',
+                  icon: FontAwesomeIcons.forward,
+                  text: 'Auto Login',
+                  flex: 1,
+                ),
+              ],
               flex: 3,
             ),
           ],

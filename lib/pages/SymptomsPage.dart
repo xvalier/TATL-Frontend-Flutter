@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/grpcClient.dart';
+import 'package:sets_frontend_flutter/pages/GUIElements.dart';
 import 'package:sets_frontend_flutter/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -45,8 +46,7 @@ class SymptomsPageState extends State<SymptomsPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(
-          'Xyntek Curated Troubleshooting',
+        title: new Text( 'Xyntek Curated Troubleshooting',
           style: appTheme.textTheme.title,
         ),
       ),
@@ -56,105 +56,62 @@ class SymptomsPageState extends State<SymptomsPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //QUESTION TEXT BOX
-            new Expanded(
-              child:new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(5.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.white),
-                  border: Border.all(
-                    color: const Color(AppColors.white),
-                    width: 0.5,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: new Text(
-                  'Does any of the below symptoms match?',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.clip,
-                  style: appTheme.textTheme.headline,
-                ),
-              ),
+            TextDisplay(
+              message: 'Does any of the below symptoms match?',
+              margin: 5.0,
+              color: AppColors.white,
+              border: 5.0,
               flex: 3,
             ),
             //LIST OF SYMPTOMS
-            new Expanded(
-              child: new Container(
-                constraints: BoxConstraints.expand(),
-                margin: const EdgeInsets.all(6.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color(AppColors.whiteWarm),
-                  border: Border.all(
-                    color: const Color(AppColors.blackCool),
-                    width: 2.5,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                ),
-                child: new Scrollbar(
-                  child: new ListView.builder(
-                    itemCount: clientModel.symptoms.length,
-                    //Make Scroll Visible
-                    //Divide each list item
-                    itemBuilder: (context, index){
-                      return Container(
-                        margin: const EdgeInsets.all(10.0),
-                        decoration: new BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: const Color(AppColors.white),
-                          border: Border.all(
-                            color: const Color(AppColors.blackCool),
-                            width: 2.5,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        child: CheckboxListTile(
-                          controlAffinity: ListTileControlAffinity.leading,
-                          title: Text(
-                            '${clientModel.symptoms[index]}',
-                            style: appTheme.textTheme.body2,
-                          ),
-                          value: checkboxes[index],
-                          onChanged: (bool value){
-                            setState((){
-                              checkboxes[index]=value;
-                            });
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+            SymptomsList(
+              margin: 6.0,
+              border: 2.0,
+              color: AppColors.whiteWarm,
+              borderColor: AppColors.blackCool,
               flex: 7,
+              item: new ListView.builder(
+                itemCount: clientModel.symptoms.length,
+                itemBuilder: (context, index){
+                  return Container(
+                    margin: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Color(AppColors.white),
+                      border: Border.all(
+                        color: Color(AppColors.blackCool),
+                        width: 2.5,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    ),
+                    child: CheckboxListTile(
+                      controlAffinity: ListTileControlAffinity.leading,
+                      title: Text(
+                        '${clientModel.symptoms[index]}',
+                        style: appTheme.textTheme.body2,
+                      ),
+                      value: checkboxes[index],
+                      onChanged: (bool value) {
+                        setState(() { checkboxes[index]=value; });
+                      }
+                    ),
+                  );
+                }
+              ),
             ),
             //SUBMIT BUTTON
-            new Expanded(
-              child:new Row(
-                children: <Widget>[
-                  new Spacer(flex:4),
-                  new Expanded(
-                    child: new Column(
-                      children: <Widget>[
-                        new FloatingActionButton(
-                          onPressed: captureSelection,
-                          backgroundColor: Color(AppColors.blueSaturated),
-                          heroTag: 'button1',
-                          child: new Icon(
-                              FontAwesomeIcons.clipboardCheck
-                          ),
-                        ),
-                        new Text(
-                          'Submit',
-                          style: appTheme.textTheme.display3,
-                        ),
-                      ],
-                    ),
-                    flex:1,
-                  )
-                ],
-              ),
+            ButtonRow(
+              widgets:[
+                new Spacer(flex:4),
+                new CustomButton(
+                  function: captureSelection,
+                  color: AppColors.blueSaturated,
+                  tag: '1',
+                  icon: FontAwesomeIcons.clipboardCheck,
+                  text: 'Submit',
+                  flex: 1,
+                ),
+              ],
               flex: 2,
             ),
           ]

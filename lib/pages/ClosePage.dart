@@ -27,7 +27,11 @@ class ClosePageState extends State<ClosePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar:  Header(message:'Xyntek Curated Troubleshooting'),
+      appBar: new AppBar(
+        title: new Text( 'Xyntek Curated Troubleshooting',
+          style: appTheme.textTheme.title,
+        ),
+      ),
       backgroundColor: Color(AppColors.white),
       body: new Center(
         child: new Column(
