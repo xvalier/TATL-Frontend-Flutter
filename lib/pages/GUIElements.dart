@@ -1,20 +1,15 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:sets_frontend_flutter/grpcClient.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:sets_frontend_flutter/theme.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //STANDARD APPBAR
-class Header extends PreferredSize {
-  Header({this.title, this.height});
-  final String title;
-  final double height;
+class Header extends AppBar {
+  Header({this.message});
+  final String message;
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: new Text(
-        title,
+        message,
         style: appTheme.textTheme.title,
       ),
     );
@@ -49,6 +44,50 @@ class TextDisplay extends StatelessWidget {
           textAlign: TextAlign.center,
           overflow: TextOverflow.clip,
           style: appTheme.textTheme.headline,
+        ),
+      ),
+      flex: flex,
+    );
+  }
+}
+
+//NEXTPAGE DISPLAY BOX
+class NextPageDisplay extends StatelessWidget {
+  NextPageDisplay({this.message, this.pad, this.color, this.borderColor, this.border, this.flex});
+  final String message;
+  final double pad;
+  final int borderColor;
+  final int color;
+  final double border;
+  final int flex;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child:new Container(
+        constraints: BoxConstraints.expand(),
+        padding: EdgeInsets.only(top:pad-2.0,left:pad, right:pad),
+        margin: EdgeInsets.only(top:pad+4.0,left:pad, right:pad, bottom: pad-2.0),
+        decoration: new BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Color(color),
+          border: Border.all(
+            color: Color(borderColor),
+            width: 2.5,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(border)),
+        ),
+        child: new Scrollbar(
+          child: ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              return new Text(
+                message,
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.clip,
+                style: appTheme.textTheme.caption,
+              );
+            },
+          ),
         ),
       ),
       flex: flex,
