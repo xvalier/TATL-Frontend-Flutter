@@ -107,7 +107,7 @@ class Client extends BaseModel {
 
     Future<Null> getSymptoms(context, text) async {
         //Process user description to get list of relevant symptoms
-        final userQuery = new UserQuery()..input = text;
+        final userQuery = new UserQuery()..input = text..token=userToken;
         final symList = await stub.getSymptomList(userQuery);
         //Fill symptoms list with backend symptoms
         symptoms = [];
@@ -127,7 +127,7 @@ class Client extends BaseModel {
 
     //Take in user selected symptoms to get first question to ask
     Future<Null> getFirstQuestion(context, selection) async {
-        final userSelection = UserSelection()..input=selection;
+        final userSelection = UserSelection()..input=selection..token=userToken;
         final question = await stub.startSession(userSelection);
         processQuestion(context, question);
         if(done){
@@ -140,7 +140,7 @@ class Client extends BaseModel {
     //Take in user yes/no answer to get next question to ask
      Future<Null> getQuestion(context, feedback) async {
         print('getQuestion function call');
-        final userFeedback = new UserFeedback()..input = feedback;
+        final userFeedback = new UserFeedback()..input = feedback..token=userToken;
         await stub.getNextQuestion(userFeedback).then((ServerFeedback) {
             processQuestion(context, ServerFeedback);
         });
