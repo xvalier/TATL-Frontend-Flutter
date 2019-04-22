@@ -1,7 +1,7 @@
-# SETS-Frontend-Flutter
-Flutter (Dart) Build of SETS Frontend. Cross-platform for Android and iOS
+# TATL-Frontend-Flutter
+Flutter (Dart) Build of TATL Frontend. Cross-platform for Android and iOS
 
-This repository contains source code to build .apk and .ios frontend applications. The source code contains UI layout and logic only, all significant processing will be performed in the backend application. SETS-Frontend-Flutter will communicate to the backend application via the gRPC protocol.
+This repository contains source code to build .apk and .ios frontend applications. The source code contains UI layout and logic only, all significant processing will be performed in the backend application. TATL-Frontend-Flutter will communicate to the backend application via the gRPC protocol.
 
 The application contains 4 pages to help an inexperianced user resolve issues they are facing:
 1) Initial Page -- User can enter a question/issue in free-text here. Their free-text description will be sent to a backend application.
